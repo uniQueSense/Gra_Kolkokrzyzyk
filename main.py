@@ -17,7 +17,7 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 yellow = (255, 255, 0)
 white = (255, 255, 255)
-black =(0, 0, 0)
+black = (0, 0, 0)
 '''********************'''
 
 ''' Zmienne globalne '''
@@ -25,14 +25,15 @@ kogo_ruch = 1
 zwycięzca = 0
 WYGRANA = False
 plansza = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-ilość = 0 # zmienna potrzebna do wyliczenia ilości pionków na planszy
+ilość = 0  # zmienna potrzebna do wyliczenia ilości pionków na planszy
 pole1 = -1
 wartosc = False
 ''' Stała globalna '''
-POLA_INDEKSY = [[0,1,2], [3,4,5], [6,7,8],
-                [0,3,6], [1,4,7], [2,5,8],
-                [0,4,8], [2,4,6]]
+POLA_INDEKSY = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]]
 '''---------------'''
+
 
 class Blok:
     def __init__(self, kolor, osx, osy, długość, wysokość):
@@ -45,8 +46,9 @@ class Blok:
     def rysuj(self, okno):
         pygame.draw.rect(okno, self.kolor, (self.osx, self.osy, self.długość, self.wysokość), 0)
 
+
 class Tekst():
-    def __init__(self, osx, osy, kolor, rozmiar, trzcionka = '', tekst = ''):
+    def __init__(self, osx, osy, kolor, rozmiar, trzcionka='', tekst=''):
         self.osx = osx
         self.osy = osy
         self.kolor = kolor
@@ -59,8 +61,9 @@ class Tekst():
         tekst = font.render(self.tekst, 1, self.kolor)
         okno.blit(tekst, (self.osx, self.osy))
 
+
 class Przycisk():
-    def __init__(self, kolor, osx, osy, długość, wysokość, tekst = ''):
+    def __init__(self, kolor, osx, osy, długość, wysokość, tekst=''):
         self.kolor = kolor
         self.osx = osx
         self.osy = osy
@@ -68,7 +71,7 @@ class Przycisk():
         self.wysokość = wysokość
         self.tekst = tekst
 
-    def draw(self, screen, outline = None):
+    def draw(self, screen, outline=None):
         if outline:
             pygame.draw.rect(screen, self.kolor, (self.osx - 2, self.osy - 2, self.długość + 4, self.wysokość + 4), 0)
         pygame.draw.rect(screen, self.kolor, (self.osx, self.osy, self.długość, self.wysokość), 0)
@@ -76,7 +79,8 @@ class Przycisk():
         if self.tekst != '':
             font = pygame.font.SysFont('comicsans', 60)
             tekst = font.render(self.tekst, 1, green)
-            screen.blit(tekst, (self.osx + (self.długość / 2 - tekst.get_width() / 2), self.osy - (self.wysokość / 2 - tekst.get_height() * 0.6 )))
+            screen.blit(tekst, (self.osx + (self.długość / 2 - tekst.get_width() / 2),
+                                self.osy - (self.wysokość / 2 - tekst.get_height() * 0.6)))
 
     def isOver(self, pos):
         if pos[0] > self.osx and pos[0] < self.osx + self.długość:
@@ -84,31 +88,13 @@ class Przycisk():
                 return True
         return False
 
-# def wczytaj_plik(plikcsv):
-#     """
-#     Funkcja zwraca tuplę tupli zawierających dane pobrane z pliku csv
-#     do zapisania w tabeli.
-#     """
-#     dane = []  # deklarujemy pustą listę
-#     if os.path.isfile(plikcsv):  # sprawdzamy czy plik istnieje na dysku
-#         with open(plikcsv, "r") as zawartosc:  # otwieramy plik do odczytu
-#             for linia in zawartosc:
-#                 linia = linia.replace("\n", "")  # usuwamy znaki końca linii
-#                 linia = linia.replace("\r", "")  # usuwamy znaki końca linii
-#                 linia = linia.decode("utf-8")  # odczytujemy znaki jako utf-8
-#                 # dodajemy elementy do tupli a tuplę do listy
-#                 dane.append(tuple(linia.split(",")))
-#     else:
-#         print("Plik z danymi", plikcsv, "nie istnieje!")
-#     return tuple(dane)  # przekształcamy listę na tuplę i zwracamy ją
-#
-# wczytaj_plik('informacje_o_grze.txt')
 
 def plansza_rysuj():
     for i in range(3):
         for j in range(3):
             kwadrat = pygame.Rect(j * 300, i * 300, 300, 300)
             pygame.draw.rect(screen, (50 * i, 50 * j, 100 + 20 * i + 30 * j), kwadrat)
+
 
 def rysuj_pionek(kolor1, kolor2):
     for i in range(3):
@@ -120,18 +106,20 @@ def rysuj_pionek(kolor1, kolor2):
             if plansza[sprawdź] == 2:
                 pygame.draw.circle(screen, kolor2, środek, 50)
 
-def postaw_znak(pole, kogo_ruch, ilość):
+
+def postaw_znak(pole, kogo_ruch, ilosc):
     if plansza[pole] == 0:
-        ilość = ilość + 1
-        if kogo_ruch == 1:          # ruch gracza
+        ilosc = ilosc + 1
+        if kogo_ruch == 1:  # ruch gracza
             plansza[pole] = 1
-            return 2, ilość
-        elif kogo_ruch == 2:        # ruch komputera
+            return 2, ilosc
+        elif kogo_ruch == 2:  # ruch komputera
             plansza[pole] = 2
-            return 1, ilość
+            return 1, ilosc
     if plansza[pole] == 1 or plansza[pole] == 2:
         print("powtórz")
-        return kogo_ruch, ilość
+        return kogo_ruch, ilosc
+
 
 def porusz_znak(pole1, pole2, kogo_ruch):
     if kogo_ruch == 1:
@@ -165,17 +153,19 @@ def porusz_znak(pole1, pole2, kogo_ruch):
                 print("na tym polu nie ma pionków2")
             return kogo_ruch
 
-def sprawdz_pola(uklad, zwycięzca = None):
+
+def sprawdz_pola(uklad, zwycięzca=None):
     wartosc = None;
     # lista wielowymiarowa, której elementami są inne listy zagnieżdżone
     for lista in POLA_INDEKSY:
-        kol = [] # lista pomocnicza
+        kol = []  # lista pomocnicza
         for ind in lista:
-            kol.append(plansza[ind]) # zapisz wartość odczytaną z POLE_GRY
-        if (kol in uklad): # jeżeli znalazłeś układ wygrywający lub blokujący
+            kol.append(plansza[ind])  # zapisz wartość odczytaną z POLE_GRY
+        if (kol in uklad):  # jeżeli znalazłeś układ wygrywający lub blokujący
             # zwróć wygranego (1,2) lub indeks pola do zaznaczenia
             wartosc = zwycięzca if zwycięzca else lista[kol.index(0)]
     return wartosc
+
 
 def kto_wygral():
     uklad_gracz = [[1, 1, 1]]
@@ -184,6 +174,7 @@ def kto_wygral():
     if not zwycięzca:
         zwycięzca = sprawdz_pola(uklad_komp, 2)
     return zwycięzca
+
 
 def kogo_tura():
     if WYGRANA != 1:
@@ -200,6 +191,7 @@ def kogo_tura():
         wynik1 = Tekst(915, 250, yellow, 60, 'comicsans', 'Ruch:' + ktoo)
         return wynik1
 
+
 reset = Przycisk(red, 915, 840, 170, 45, 'Reset')
 wyjście = Przycisk(red, 1115, 840, 170, 45, 'Wyjdź')
 menu = Przycisk(red, 915, 780, 370, 45, 'Menu')
@@ -212,6 +204,7 @@ zaczyna_gracz = Przycisk(black, 10, 70, 250, 45, 'Gracz')
 zaczyna_komputer = Przycisk(black, 270, 70, 250, 45, 'Komputer')
 zaczyna_losowo = Przycisk(black, 530, 70, 250, 45, 'Losowo')
 informacje = Tekst(10, 400, black, 32, "comicsans", 'fff')
+
 
 def drukuj_wynik(zwycięzca):
     if zwycięzca == 1:
@@ -240,6 +233,7 @@ def redraw(wartosc):
         zaczyna_komputer.draw(screen)
         zaczyna_losowo.draw(screen)
         informacje.write(screen)
+
 
 while True:
     pygame.display.update()
@@ -310,13 +304,13 @@ while True:
                     zaczyna_gracz.kolor = blue
         '''*******************************************'''
 
-        if ilość < 6 and wartosc == False: # po postawieniu 6 pionka nie możemy umieścić już więcej
+        if ilość < 6 and wartosc == False:  # po postawieniu 6 pionka nie możemy umieścić już więcej
             if WYGRANA == False:
                 if kogo_ruch == 1:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if event.button == 1:  # jeżeli naciśnięto pierwszy przycisk
                             mouseX, mouseY = event.pos  # rozpakowanie tupli
-                            if mouseX <= 900 and mouseY <= 900: # uniemożliwia kliknięcie obszaru poza planszą do gry
+                            if mouseX <= 900 and mouseY <= 900:  # uniemożliwia kliknięcie obszaru poza planszą do gry
                                 pole = ((mouseY // 300) * 3) + (mouseX // 300)  # wylicz indeks klikniętego pola
                                 kogo_ruch, ilość = postaw_znak(pole, kogo_ruch, ilość)
                 elif kogo_ruch == 2:
@@ -329,7 +323,7 @@ while True:
                 zwycięzca = kto_wygral()
                 if zwycięzca != None:
                     WYGRANA = True
-        if ilość == 6 and wartosc == False: # zmiana miejsca pionka na planszy
+        if ilość == 6 and wartosc == False:  # zmiana miejsca pionka na planszy
             if WYGRANA == False:
                 if kogo_ruch == 1:
                     if event.type == pygame.MOUSEBUTTONDOWN:
