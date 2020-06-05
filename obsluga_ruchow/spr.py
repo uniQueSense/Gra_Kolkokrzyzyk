@@ -1,39 +1,61 @@
-from obsluga_ruchow.poruszanie import porusz_znak
+KOMPUTER = 1
+GRACZ = -1
 
-def sasiadujace(pole1, pole2, kogo_ruch,  plansza):   # sprawdza czy pionek sasiaduje z wybranym polem
-    if pole1 == 0:    # 3 opcje
-        for n in [1, 3, 4]:
-            if pole2 == n:
-                kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    elif pole1 == 2:
-        for n in [1, 4, 5]:
-            if pole2 == n:
-                kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    elif pole1 == 6:
-        for n in [3, 4, 7]:
-            if pole2 == n:
-                kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    elif pole1 == 8:
-        for n in [4, 5, 7]:
-            if pole2 == n:
-                kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    elif pole1 == 1:   # 5 opcji
-        for n in [0, 2, 3, 4, 5]:
-            if pole2 == n:
-                kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    elif pole1 == 3:
-        for n in [0, 1, 4, 6, 7]:
-            if pole2 == n:
-                kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    elif pole1 == 5:
-        for n in [1, 2, 4, 7, 8]:
-            if pole2 == n:
-                kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    elif pole1 == 7:
-        for n in [3, 4, 5, 6, 8]:
-            if pole2 == n:
-                kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    elif pole1 == 4:   # sasiaduje ze wszystkimi
-        kogo_ruch = porusz_znak(pole1, pole2, kogo_ruch, plansza)
-    return kogo_ruch
+def sprawdz_pola(plansza):
+    for kolumna in range(3):
+        if plansza[0][kolumna] == plansza[1][kolumna] and plansza[1][kolumna] == plansza[2][kolumna]:
+            if plansza[0][kolumna] == 1:
+                return KOMPUTER
+            elif plansza[0][kolumna] == -1:
+                return GRACZ
+    for wiersz in range(3):
+        if plansza[wiersz][0] == plansza[wiersz][1] and plansza[wiersz][1] == plansza[wiersz][2]:
+            if plansza[wiersz][0] == 1:
+                return KOMPUTER
+            elif plansza[wiersz][0] == -1:
+                return GRACZ
+    if plansza[0][0] == plansza[1][1] and plansza[1][1] == plansza[2][2]:
+        if plansza[0][0] == 1:
+            return KOMPUTER
+        elif plansza[0][0] == -1:
+            return GRACZ
+    if plansza[0][2] == plansza[1][1] and plansza[1][1] == plansza[2][0]:
+        if plansza[1][1] == 1:
+            return KOMPUTER
+        elif plansza[1][1] == -1:
+            return GRACZ
+    return 0
+
+def sasiadujace(osx0, osy0, osx1, osy1):   # sprawdza czy pionek sasiaduje z wybranym polem
+    if osx0 == 0:
+        if osy0 == 0:
+            if osx1 != 2 and osy1 !=2:
+                return True
+        if osy0 == 1:
+            if osx1 != 2:
+                return True
+        if osy0 == 2:
+            if osx1 != 2 and osy1 != 0:
+                return True
+    elif osx0 == 1:
+        if osy0 == 0:
+            if osy1 != 2:
+                return True
+        if osy0 == 1:
+            return True
+        if osy0 == 2:
+            if osy1 != 0:
+                return True
+    elif osx0 == 2:
+        if osy0 == 0:
+            if osx1 != 0 and osy1 != 2:
+                return True
+        if osy0 == 1:
+            if osx1 != 0:
+                return True
+        if osy0 == 2:
+            if osx1 != 0 and osy1 != 0:
+                return True
+    return False
+
 
