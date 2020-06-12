@@ -1,0 +1,25 @@
+''' Stała globalna '''
+GRACZ = -1
+PUSTO = 0
+KOMPUTER = 1
+INF = 99999999
+ROZMIAR = (1300, 900)
+BLAD_ROZM = 25
+OPIS_ROZM = 32
+CZCIONKA = 'comicsans'
+
+''' * * * KOLORY * * * '''
+RED = (255, 0, 0)
+GREEN = (0, 128, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+SADDLEBROWN = (139, 69, 19)
+BURLYWOOD = (222, 184, 135)
+LIME = (0, 255, 0)
+MARON = (128, 0, 0)
+ROSYBROWN = (188, 143, 143)
+GOLD = (255, 215, 0)
+PERU = (205, 133, 63)
+BROWN = (165, 42, 42)
