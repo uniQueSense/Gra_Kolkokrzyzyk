@@ -1,8 +1,15 @@
-from obsluga_ruchow.spr import *
-from stale.stale import KOMPUTER, GRACZ, PUSTO
+from obsluga_ruchow.sprawdzanie_ruchow import sasiadujace
+from obsluga_ruchow.sprawdzanie_ruchow import sprawdz_pola
+from stale.stale import GRACZ
+from stale.stale import INF
+from stale.stale import ILOSC_WIERSZY
+from stale.stale import ILOSC_KOLUMN
+from stale.stale import KOMPUTER
+from stale.stale import PUSTO
 
 
 def ocena_pola(plansza):
+    """ Ocena planszy w funkcji minimax"""
     if sprawdz_pola(plansza) == KOMPUTER:
         return 10
     elif sprawdz_pola(plansza) == GRACZ:
@@ -12,28 +19,29 @@ def ocena_pola(plansza):
 
 
 def puste_pola(plansza):
-    tab = []
-    for kol in range(3):
-        for wiersz in range(3):
-            if plansza[wiersz][kol] == 0:
-                index = [wiersz, kol]
-                tab.append(index)
-    return tab
+    """ Zapisuje indexy pustych pól w grze """
+    index = []
+    for kol in range(ILOSC_KOLUMN):
+        for wiersz in range(ILOSC_WIERSZY):
+            if plansza[wiersz][kol] == PUSTO:
+                index.append((wiersz, kol))
+    return index
 
 
 def pola_zajete(plansza):
-    tab = []
-    for kol in range(3):
-        for wiersz in range(3):
-            if plansza[wiersz][kol] == 1:
-                index = [wiersz, kol]
-                tab.append(index)
-    return tab
+    """ Zapisuje indexy zajętych pól w grze """
+    index = []
+    for kol in range(ILOSC_KOLUMN):
+        for wiersz in range(ILOSC_WIERSZY):
+            if plansza[wiersz][kol] != PUSTO:
+                index.append((wiersz, kol))
+    return index
 
 
 def minimax_ustawianie(poziom, max, plansza):
+    """ Funkcja minimax do etapu rozstawiania pionków """
     puste = puste_pola(plansza)
-    if poziom == 0 or len(puste) == 0:
+    if not poziom or not len(puste):
         return None, ocena_pola(plansza)
     if max:
         index = puste[0]
@@ -60,9 +68,10 @@ def minimax_ustawianie(poziom, max, plansza):
 
 
 def minimax_przemieszczanie(poziom, max, plansza):
+    """ Funkcja minimax do etapu przemieszczania pionków """
     zajete = pola_zajete(plansza)
     puste = puste_pola(plansza)
-    if poziom == 0:
+    if not poziom:
         return None, None, ocena_pola(plansza)
     elif max:
         index0 = zajete[0]
