@@ -12,19 +12,20 @@ from funkcje_rysujace.napisy_przyciski import p_komputer
 from funkcje_rysujace.napisy_przyciski import nadpisz
 from obsluga_ruchow.poruszanie import postaw_znak
 from obsluga_ruchow.poruszanie import porusz_znak
-from obsluga_ruchow.sprawdzanie_ruchow import kto_wygral, stworz_tablice
-from stale.stale import ROZMIAR_POLA
-from stale.stale import ROZMIAR_PLANSZY
+from obsluga_ruchow.sprawdzanie_ruchow import kto_wygral
+from obsluga_ruchow.sprawdzanie_ruchow import stworz_tablice
+from stale.stale import GRACZ
 from stale.stale import GLEBOKOSC
+from stale.stale import ILOSC_PIONKOW
+from stale.stale import KOMPUTER
 from stale.stale import KOLOR2_WYBORU_GRACZA
 from stale.stale import KOLOR1_WYBORU_GRACZA
 from stale.stale import KOLOR_P_WSTECZ
-from stale.stale import PRZYCISKI_KOLOR2
 from stale.stale import PRZYCISKI_KOLOR1
-from stale.stale import ILOSC_PIONKOW
+from stale.stale import PRZYCISKI_KOLOR2
+from stale.stale import ROZMIAR_POLA
+from stale.stale import ROZMIAR_PLANSZY
 from stale.stale import ROZMIAR
-from stale.stale import KOMPUTER
-from stale.stale import GRACZ
 from sztuczna_inteligencja.minimax import minimax_ustawianie
 from sztuczna_inteligencja.minimax import minimax_przemieszczanie
 from sztuczna_inteligencja.minimax import sasiadujace
@@ -40,10 +41,6 @@ def main():
     wybrano = False  # sprawdza czy wybrano pionek do przesuniecia
     koniec = True
     plansza = stworz_tablice()
-    # [[0, 0, 0],
-    #     [0, 0, 0],
-    #   [0, 0, 0]]
-
     punkt_gracz, punkt_ai = 0, 0
     blad = blad5
 
