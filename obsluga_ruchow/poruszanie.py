@@ -29,7 +29,7 @@ def porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza):
                 plansza[osy0][osx0] = PUSTO
                 plansza[osy1][osx1] = GRACZ
                 return KOMPUTER, blad5
-            elif plansza[osy1][osx1] == KOMPUTER or plansza[osy1][osx1] == GRACZ:
+            else:
                 return GRACZ, blad3
         elif plansza[osx0][osy0] == KOMPUTER:
             return kogo_ruch, blad2
