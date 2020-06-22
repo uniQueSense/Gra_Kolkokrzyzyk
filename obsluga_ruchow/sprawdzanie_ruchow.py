@@ -2,13 +2,6 @@ from stale.stale import GRACZ
 from stale.stale import ILOSC_KOLUMN
 from stale.stale import ILOSC_WIERSZY
 from stale.stale import KOMPUTER
-from stale.stale import PUSTO
-from stale.stale import WYMIAR_PLANSZY
-
-
-def stworz_tablice():
-    """ Tworzenie pustej tablicy  3x3. """
-    return [[PUSTO for i in range(WYMIAR_PLANSZY)] for j in range(WYMIAR_PLANSZY)]
 
 
 def sprawdz_pola(plansza):

@@ -7,6 +7,7 @@ from stale.stale import GRACZ
 from stale.stale import KOMPUTER
 from stale.stale import PUSTO
 
+
 def postaw_znak(osy, osx, kogo_ruch, ilosc, plansza):
     """ Funkcja nadpisuje wartościami GRACZ lub KOMPUTER tablicę gry """
     if plansza[osy][osx] == PUSTO:

@@ -1,6 +1,6 @@
 import unittest
 
-from obsluga_ruchow.sprawdzanie_ruchow import stworz_tablice
+from funkcje_rysujace.plansza import stworz_tablice
 from obsluga_ruchow.sprawdzanie_ruchow import sprawdz_pola
 from stale.stale import GRACZ
 from stale.stale import KOMPUTER

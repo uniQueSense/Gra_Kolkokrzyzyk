@@ -2,18 +2,20 @@ import pygame
 import sys
 import time
 
-from funkcje_rysujace.napisy_przyciski import p_menu, blad5, blad4
-from funkcje_rysujace.napisy_przyciski import przekaz_wynik
+from funkcje_rysujace.napisy_przyciski import blad4
+from funkcje_rysujace.napisy_przyciski import blad5
+from funkcje_rysujace.napisy_przyciski import p_menu
 from funkcje_rysujace.napisy_przyciski import p_wstecz
 from funkcje_rysujace.napisy_przyciski import p_reset
 from funkcje_rysujace.napisy_przyciski import p_wyjscie
 from funkcje_rysujace.napisy_przyciski import p_gracz
 from funkcje_rysujace.napisy_przyciski import p_komputer
+from funkcje_rysujace.napisy_przyciski import przekaz_wynik
 from funkcje_rysujace.napisy_przyciski import nadpisz
+from funkcje_rysujace.plansza import stworz_tablice
 from obsluga_ruchow.poruszanie import postaw_znak
 from obsluga_ruchow.poruszanie import porusz_znak
 from obsluga_ruchow.sprawdzanie_ruchow import kto_wygral
-from obsluga_ruchow.sprawdzanie_ruchow import stworz_tablice
 from stale.stale import GRACZ
 from stale.stale import GLEBOKOSC
 from stale.stale import ILOSC_PIONKOW
@@ -35,14 +37,14 @@ def main():
     ''' Zmienne '''
     kogo_ruch = GRACZ
     zwyciezca = 0
-    ilosc = 0  # zlicza ruchy
-    wartosc = False
+    ilosc = 0  # zlicza ruchy, kontroluje ilosc pionków w grze
+    wartosc = False  # zmienna sprawdzająca czy menu zostało otwarte
     wygrana = False
     wybrano = False  # sprawdza czy wybrano pionek do przesuniecia
     koniec = True
     plansza = stworz_tablice()
-    punkt_gracz, punkt_ai = 0, 0
-    blad = blad5
+    punkt_gracz, punkt_ai = 0, 0  # zmienna zliczajaca punkty gracza / komputera
+    blad = blad5  # zmienna przechowujaca blad, domyslnie blad5 oznacza brak błędu
 
     pygame.init()
 
@@ -60,10 +62,8 @@ def main():
 
             '''*********** obsługa przycisków *************'''
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if p_reset.isOver(pos):
-                    plansza = [[0, 0, 0],
-                               [0, 0, 0],
-                               [0, 0, 0]]
+                if p_reset.isOver(pos) and wygrana:
+                    plansza = stworz_tablice()
                     ilosc = 0
                     kogo_ruch = GRACZ
                     wygrana = False
@@ -71,10 +71,10 @@ def main():
                 if p_wyjscie.isOver(pos):
                     pygame.quit()
                     sys.exit(0)
-                if not wartosc:
+                if not wartosc and (not ilosc or wygrana):
                     if p_menu.isOver(pos):
                         wartosc = True
-                elif wartosc:
+                else:
                     if p_gracz.isOver(pos):
                         kogo_ruch = GRACZ
                     if p_komputer.isOver(pos):
@@ -96,7 +96,6 @@ def main():
                     p_menu.kolor = PRZYCISKI_KOLOR2
                 else:
                     p_menu.kolor = PRZYCISKI_KOLOR1
-
                 if wartosc:
                     if p_wstecz.isOver(pos):
                         p_wstecz.kolor = PRZYCISKI_KOLOR2
