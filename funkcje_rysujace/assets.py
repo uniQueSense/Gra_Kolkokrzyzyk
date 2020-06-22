@@ -26,5 +26,5 @@ class Assets:
                                '    oraz pole puste,na które chce przenieść pionek.').napisz(okno)
         Assets.ZASADY8 = Tekst(OSX_INFO, OSY_INFO + 210, KOLOR_TEKSTU, OPIS_ROZM, CZCIONKA,
                                '4. Gra toczy się do momentu, w którym jeden z graczy').napisz(okno)
-        Assets.ZASADY9 = Tekst(OSX_INFO, OSY_INFO + 230, KOLOR_TEKSTU, OPIS_ROZM, CZCIONKA,
+        Assets.ZASADY9 = Tekst(OSX_INFO, OSY_INFO + 240, KOLOR_TEKSTU, OPIS_ROZM, CZCIONKA,
                                '    ustawi w jednym rzędzie swoje 3 pionki.').napisz(okno)
