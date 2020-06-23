@@ -17,10 +17,22 @@ ZASADY = [
 class Assets:
     # Informacje zawarte w menu
 
+    assetZasady = None
+
+    @staticmethod
+    def load():
+        Assets.assetZasady = [
+            klasy.Tekst(stale.OSX_INFO, stale.OSY_INFO + 30 * i, kolory.KOLOR_TEKSTU, stale.OPIS_ROZM, stale.CZCIONKA,
+                        x) for i, x in enumerate(ZASADY)]
+
+    @staticmethod
+    def napisz(okno):
+        for x in Assets.assetZasady:
+            x.napisz(okno)
     # @staticmethod
     # def load(okno):
     #     Assets.ZASADY1 = Tekst(stale.OSX_INFO, stale.OSY_INFO, kolory.KOLOR_TEKSTU, stale.OPIS_ROZM, stale.CZCIONKA,
-    #                            'Witaj w grze Kółko i krzyżyk!')
+    #                            'Witaj w grze Kółko i krzyżyk!').napisz(okno)
     #     Assets.ZASADY2 = Tekst(stale.OSX_INFO, stale.OSY_INFO + 30, kolory.KOLOR_TEKSTU, stale.OPIS_ROZM,
     #                            stale.CZCIONKA, 'Zasady gry:')
     #     Assets.ZASADY3 = Tekst(stale.OSX_INFO, stale.OSY_INFO + 60, kolory.KOLOR_TEKSTU, stale.OPIS_ROZM,
@@ -37,10 +49,3 @@ class Assets:
     #                            stale.CZCIONKA, '4. Gra toczy się do momentu, w którym jeden z graczy')
     #     Assets.ZASADY9 = Tekst(stale.OSX_INFO, stale.OSY_INFO + 240, kolory.KOLOR_TEKSTU, stale.OPIS_ROZM,
     #                            stale.CZCIONKA, '    ustawi w jednym rzędzie swoje 3 pionki.')
-
-
-    @staticmethod
-    def load():
-        Assets.zasady = [
-            klasy.Tekst(stale.OSX_INFO, stale.OSY_INFO + 30 * i, kolory.KOLOR_TEKSTU, stale.OPIS_ROZM, stale.CZCIONKA,
-                        x) for i, x in enumerate(ZASADY)]

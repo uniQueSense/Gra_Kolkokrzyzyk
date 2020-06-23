@@ -1,6 +1,6 @@
 from dane import kolory
 from dane import stale
-from funkcje_rysujace import klasy
+from funkcje_rysujace import klasy, assets
 from funkcje_rysujace import pionki
 from funkcje_rysujace import obszar_gry
 
@@ -99,6 +99,7 @@ def nadpisz(stan, punkt_ai, punkt_gracz, blad, kogo_ruch, wygrana, plansza, okno
         p_menu.rysuj(okno)
     else:
         pole_menu.rysuj(okno)
+        assets.Assets.napisz(okno)
         t_kto_zaczyna.napisz(okno)
         p_wstecz.rysuj(okno)
         p_gracz.rysuj(okno)
