@@ -70,14 +70,8 @@ def obluga_przyciskow(event, ilosc, kogo_ruch, koniec, plansza, pos, wartosc, wy
                 napisy_przyciski.p_gracz.kolor = kolory.KOLOR1_WYBORU_GRACZA
             else:
                 napisy_przyciski.p_gracz.kolor = kolory.KOLOR2_WYBORU_GRACZA
-
     return ilosc, koniec, kogo_ruch, plansza, wartosc, wygrana
 
-
-# potrzebujesz zmiennej bool mówiącej czy masz już wybranu wcześniej przycisk
-# jezeli jest wybrany to ten event ktry przekazales do drugi_etap_gry rozpatrujesz jako osx1 i osy1
-# jezeli nie był wczesniej wybrany to event rozpatrujesz jako osx0 isy0
-#
 
 def pierwszy_etap_gry(blad, event, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana):
     # Obsługa ruchów GRACZA
@@ -135,9 +129,9 @@ def drugi_etap_gry(blad, event, kogo_ruch, plansza, punkt_gracz, punkt_ai, wybra
 
 
 def main():
+    # Zmienne
     osx0 = -1
     osy0 = -1
-    # Zmienne
     kogo_ruch = stale.GRACZ
     zwyciezca = 0
     ilosc = 0  # zlicza ruchy, kontroluje ilosc pionków w grze
