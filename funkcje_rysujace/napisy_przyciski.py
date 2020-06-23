@@ -3,6 +3,7 @@ from dane import stale
 from funkcje_rysujace import assets
 from funkcje_rysujace import klasy
 from funkcje_rysujace import pionki
+from funkcje_rysujace import obszar_gry
 
 
 ''' Przyciski w GUI '''
@@ -95,7 +96,7 @@ def nadpisz(stan, punkt_ai, punkt_gracz, blad, kogo_ruch, wygrana, plansza, okno
     t_blad_naglowek.napisz(okno)
     blad.napisz(okno)
     if not stan:
-        plansza_rysuj_pole_gry(okno)
+        obszar_gry.rysuj_pole_gry(okno)
         pionki.rysuj_pionek(okno, kolory.KOLOR_GRACZA, kolory.KOLOR_AI, plansza)
         p_menu.rysuj(okno)
     else:

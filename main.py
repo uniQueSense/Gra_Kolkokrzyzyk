@@ -101,9 +101,10 @@ def main():
 
                     ''' Obsługa róchów KOMPUTERA '''
                 elif kogo_ruch == stale.KOMPUTER:
-                    index = minimax.minimax_ustawianie(stale.GLEBOKOSC, True, plansza)[0]
-                    osx = index[1]
-                    osy = index[0]
+                    osy, osx = minimax.minimax_ustawianie(stale.GLEBOKOSC, True, plansza)[0]
+                    print(osx, osy)
+                    #osx = index[1]
+                    #osy = index[0]
                     kogo_ruch, ilosc, blad = poruszanie.postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
                 zwyciezca = sprawdzanie_ruchow.kto_wygral(punkt_gracz, punkt_ai, plansza)
                 if zwyciezca:

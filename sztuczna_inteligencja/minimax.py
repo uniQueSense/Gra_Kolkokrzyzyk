@@ -74,7 +74,7 @@ def minimax_przemieszczanie(poziom, max, plansza):
         for wiersz, kol in zajete:
             tab = [[kol for kol in wiersz] for wiersz in plansza]
             for wiersz_wstaw, kol_wstaw in puste:
-                if sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == stale.KOMPUTER:
+                if sprawdzanie_ruchow.sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == stale.KOMPUTER:
                     tab[wiersz][kol] = stale.PUSTO
                     tab[wiersz_wstaw][kol_wstaw] = stale.KOMPUTER
                     _, _, stan = minimax_przemieszczanie(poziom - 1, False, tab)
@@ -90,7 +90,7 @@ def minimax_przemieszczanie(poziom, max, plansza):
         for wiersz, kol in zajete:
             tab = [[kol for kol in wiersz] for wiersz in plansza]
             for wiersz_wstaw, kol_wstaw in puste:
-                if sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == stale.GRACZ:
+                if sprawdzanie_ruchow.sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == stale.GRACZ:
                     tab[wiersz][kol] = stale.PUSTO
                     tab[wiersz_wstaw][kol_wstaw] = stale.GRACZ
                     _, _, stan = minimax_przemieszczanie(poziom - 1, True, tab)
