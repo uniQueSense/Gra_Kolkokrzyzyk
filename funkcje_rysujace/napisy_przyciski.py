@@ -1,20 +1,18 @@
 from dane import kolory
 from dane import stale
-from funkcje_rysujace import assets
 from funkcje_rysujace import klasy
 from funkcje_rysujace import pionki
 from funkcje_rysujace import obszar_gry
 
-
-''' Przyciski w GUI '''
+# Przyciski w GUI
 p_reset = klasy.Przycisk(kolory.KOLOR_PRZYCISK_NAWIGACJI, kolory.KOLOR_TEKSTU_PRZYCISKI, stale.OSX_PRZYCISKOW1,
                          stale.OSY_PRZYCISKOW1, stale.DL_PRZYCISKU1, stale.WYS_PRZYCISKU1, 'Reset')
 p_wyjscie = klasy.Przycisk(kolory.KOLOR_PRZYCISK_NAWIGACJI, kolory.KOLOR_TEKSTU_PRZYCISKI, stale.OSX_PRZYCISKOW2,
                            stale.OSY_PRZYCISKOW1, stale.DL_PRZYCISKU1, stale.WYS_PRZYCISKU1, 'Wyjdź')
 p_menu = klasy.Przycisk(kolory.KOLOR_PRZYCISK_NAWIGACJI, kolory.KOLOR_TEKSTU_PRZYCISKI, stale.OSX_PRZYCISKOW1,
-                        stale.OSY_PRZYCISKOW2, stale.DL_PRZYCISKU3,stale.WYS_PRZYCISKU1, 'Menu')
+                        stale.OSY_PRZYCISKOW2, stale.DL_PRZYCISKU3, stale.WYS_PRZYCISKU1, 'Menu')
 p_wstecz = klasy.Przycisk(kolory.KOLOR_P_WSTECZ, kolory.KOLOR_TEKSTU_PRZYCISKI, stale.OSX_PRZYCISKOW1,
-                          stale.OSY_PRZYCISKOW2, stale.DL_PRZYCISKU3, stale.WYS_PRZYCISKU1,'Wstecz')
+                          stale.OSY_PRZYCISKOW2, stale.DL_PRZYCISKU3, stale.WYS_PRZYCISKU1, 'Wstecz')
 p_gracz = klasy.Przycisk(kolory.KOLOR_TEKSTU, kolory.KOLOR_TEKST_P_MENU, stale.OSX_PRZYCISKOW3, stale.OSY_PRZYCISKOW3,
                          stale.DL_PRZYCISKU2, stale.WYS_PRZYCISKU1,
                          'Gracz')
@@ -23,13 +21,13 @@ p_komputer = klasy.Przycisk(kolory.KOLOR_TEKSTU, kolory.KOLOR_TEKST_P_MENU, stal
                             stale.DL_PRZYCISKU2, stale.WYS_PRZYCISKU1,
                             'Komputer')
 
-''' Bloki w GUI '''
+# Bloki w GUI
 pole_informacyjne = klasy.Blok(kolory.KOLOR_POLE_INF, stale.OSX_POLE_INF, stale.OSY_POLE_INF, stale.DL_POLE_INF,
                                stale.WYS_POLE_INF)
 pole_menu = klasy.Blok(kolory.KOLOR_MENU, stale.OSX_PLANSZA, stale.OSY_PLANSZA, stale.ROZMIAR_PLANSZY,
                        stale.ROZMIAR_PLANSZY)
 
-''' Tekst wyświetlany w GUI '''
+# Tekst wyświetlany w GUI
 t_naglowek = klasy.Tekst(stale.OSX_NAGLOWEK, stale.OSY_NAGLOWEK, kolory.KOLOR_WYNIK, stale.ROZMIAR_TEKSTU1,
                          stale.CZCIONKA,
                          'WYNIK:')
@@ -39,7 +37,7 @@ t_ai = klasy.Tekst(stale.OSX_NAPIS_AI, stale.OSY_NAPIS_AI, kolory.KOLOR_AI, stal
 t_kto_zaczyna = klasy.Tekst(stale.OSX_NAPIS_KTO, stale.OSY_NAPIS_KTO, kolory.KOLOR_TEKSTU, stale.ROZMIAR_TEKSTU2,
                             stale.CZCIONKA, 'Kto ma zacząć rozgrywkę:')
 
-""" Błędy wyświetlane podczas nieprawidłowego ruchu przez gracza """
+# Błędy wyświetlane podczas nieprawidłowego ruchu przez gracza
 t_blad_naglowek = klasy.Tekst(stale.OSX_BLAD, stale.OSY_BLAD_NAGLOWEK, kolory.KOLOR_TEKSTU, stale.BLAD_ROZM,
                               stale.CZCIONKA,
                               'Błąd:')
@@ -105,4 +103,3 @@ def nadpisz(stan, punkt_ai, punkt_gracz, blad, kogo_ruch, wygrana, plansza, okno
         p_wstecz.rysuj(okno)
         p_gracz.rysuj(okno)
         p_komputer.rysuj(okno)
-        assets.Assets.load(okno)

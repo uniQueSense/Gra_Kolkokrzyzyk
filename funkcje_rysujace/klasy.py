@@ -3,7 +3,7 @@ from dane import stale
 
 
 class Blok:
-    ''' Klasa tworzy element graficzny w ksztalcie prostokąta '''
+    # Klasa tworzy element graficzny w ksztalcie prostokąta
 
     def __init__(self, kolor, osx, osy, dlugosc, wysokosc):
         self.kolor = kolor
@@ -17,7 +17,7 @@ class Blok:
 
 
 class Tekst:
-    ''' Klasa wypisuje tekst w GUI '''
+    # Klasa wypisuje tekst w GUI
 
     def __init__(self, osx, osy, kolor, rozmiar, czcionka='', tekst=''):
         self.osx = osx
@@ -34,7 +34,7 @@ class Tekst:
 
 
 class Przycisk:
-    ''' Klasa tworzy przycisk, w którego wnętrzu zawiera się tekst '''
+    # Klasa tworzy przycisk, w którego wnętrzu zawiera się tekst
 
     def __init__(self, kolor, kolor_tekst, osx, osy, dlugosc, wysokosc, tekst=''):
         self.kolor = kolor

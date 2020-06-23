@@ -1,8 +1,7 @@
 from dane import stale
 
 
-def sprawdz_pola(plansza):
-    """ Sprawdzanie czy ktoś nie wygrał i zawracanie zwyciezcy """
+def sprawdz_pola(plansza):  # Sprawdzanie czy ktoś nie wygrał i zawracanie zwyciezcy
     for kolumna in range(stale.ILOSC_KOLUMN):
         if plansza[0][kolumna] == plansza[1][kolumna] == plansza[2][kolumna]:
             if plansza[0][kolumna] == stale.GRACZ:
@@ -28,8 +27,7 @@ def sprawdz_pola(plansza):
     return 0
 
 
-def sasiadujace(osx0, osy0, osx1, osy1):
-    """ Sprawdza czy pionek sasiaduje z wybranym polem """
+def sasiadujace(osx0, osy0, osx1, osy1):  # Sprawdza czy pionek sasiaduje z wybranym polem
     if abs(osx1 - osx0) <= 1 and abs(osy1 - osy0) <= 1:
         return True
     else:
