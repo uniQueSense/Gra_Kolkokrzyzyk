@@ -25,9 +25,9 @@ def porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza):  # Funkcja obsługu
             else:
                 return stale.GRACZ, napisy_przyciski.blad_zajete_pole
         elif plansza[osx0][osy0] == stale.KOMPUTER:
-            return kogo_ruch, napisy_przyciski.blad_zly_pionek
+            return stale.GRACZ, napisy_przyciski.blad_zly_pionek
         elif plansza[osx0][osy0] == stale.PUSTO:
-            return kogo_ruch, napisy_przyciski.blad_puste_pole
+            return stale.GRACZ, napisy_przyciski.blad_puste_pole
     elif kogo_ruch == stale.KOMPUTER:
         if plansza[osy0][osx0] == stale.KOMPUTER:
             if plansza[osy1][osx1] == stale.PUSTO:
@@ -37,4 +37,5 @@ def porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza):  # Funkcja obsługu
             else:
                 return stale.KOMPUTER, napisy_przyciski.brak_bledu
         else:
-            return kogo_ruch, napisy_przyciski.brak_bledu
+            return stale.KOMPUTER, napisy_przyciski.brak_bledu
+    return kogo_ruch, napisy_przyciski.brak_bledu

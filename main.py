@@ -74,7 +74,69 @@ def obluga_przyciskow(event, ilosc, kogo_ruch, koniec, plansza, pos, wartosc, wy
     return ilosc, koniec, kogo_ruch, plansza, wartosc, wygrana
 
 
+# potrzebujesz zmiennej bool mówiącej czy masz już wybranu wcześniej przycisk
+# jezeli jest wybrany to ten event ktry przekazales do drugi_etap_gry rozpatrujesz jako osx1 i osy1
+# jezeli nie był wczesniej wybrany to event rozpatrujesz jako osx0 isy0
+#
+
+def pierwszy_etap_gry(blad, event, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana):
+    # Obsługa ruchów GRACZA
+    if kogo_ruch == stale.GRACZ and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        mouseX, mouseY = event.pos
+        if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
+            osy = (mouseY // stale.ROZMIAR_POLA)
+            osx = (mouseX // stale.ROZMIAR_POLA)
+            kogo_ruch, ilosc, blad = poruszanie.postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
+
+        # Obsługa ruchów KOMPUTERA
+    elif kogo_ruch == stale.KOMPUTER:
+        osy, osx = minimax.minimax_ustawianie(stale.GLEBOKOSC, True, plansza)[0]
+        kogo_ruch, ilosc, blad = poruszanie.postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
+    zwyciezca = sprawdzanie_ruchow.kto_wygral(punkt_gracz, punkt_ai, plansza)
+    if zwyciezca:
+        wygrana = True
+    return blad, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana, zwyciezca
+
+
+def drugi_etap_gry(blad, event, kogo_ruch, plansza, punkt_gracz, punkt_ai, wybrano, wygrana, osy0, osx0):
+    # Obsługa ruchów GRACZA
+    if kogo_ruch == stale.GRACZ:
+        if not wybrano:
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                mouseX, mouseY = event.pos
+                if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
+                    temp_osy0 = (mouseY // stale.ROZMIAR_POLA)
+                    temp_osx0 = (mouseX // stale.ROZMIAR_POLA)
+                if plansza[temp_osy0][temp_osx0] == stale.GRACZ:
+                    osx0 = temp_osx0
+                    osy0 = temp_osy0
+                    wybrano = True
+        else:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                mouseX, mouseY = event.pos
+                if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
+                    osy1 = (mouseY // stale.ROZMIAR_POLA)
+                    osx1 = (mouseX // stale.ROZMIAR_POLA)
+                if sprawdzanie_ruchow.sasiadujace(osx0, osy0, osx1, osy1):
+                    kogo_ruch, blad = poruszanie.porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
+                else:
+                    blad = napisy_przyciski.blad_zle_pole
+                wybrano = False
+
+    elif kogo_ruch == stale.KOMPUTER:  # Obsługa ruchów KOMPUTERA
+        index0, index1, _ = minimax.minimax_przemieszczanie(stale.GLEBOKOSC, True, plansza)
+        osx0, osy0 = index0[1], index0[0]
+        osx1, osy1 = index1[1], index1[0]
+        kogo_ruch, blad = poruszanie.porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
+    zwyciezca = sprawdzanie_ruchow.kto_wygral(punkt_gracz, punkt_ai, plansza)
+    if zwyciezca:
+        wygrana = True
+    return blad, kogo_ruch, plansza, punkt_gracz, punkt_ai, zwyciezca, wygrana, wybrano, osx0, osy0
+
+
 def main():
+    osx0 = -1
+    osy0 = -1
     # Zmienne
     kogo_ruch = stale.GRACZ
     zwyciezca = 0
@@ -86,7 +148,6 @@ def main():
     plansza = obszar_gry.stworz_tablice()
     punkt_gracz, punkt_ai = 0, 0  # zmienna zliczajaca punkty gracza / komputera
     blad = napisy_przyciski.brak_bledu  # zmienna przechowujaca blad
-
     pygame.init()
 
     pygame.font.get_fonts()
@@ -105,54 +166,22 @@ def main():
                                                                                     plansza, pos, wartosc, wygrana)
 
             # Rozstawianie pionków po przez wciśnięcie myszki w danym polu,
-            #   zmienna ilosc zlicza nam ile pionkow zostalo juz rozstawionych
+            # zmienna ilosc zlicza nam ile pionkow zostalo juz rozstawionych
             if ilosc != stale.ILOSC_PIONKOW and not wartosc and not wygrana:
-                # Obsługa ruchów GRACZA
-                if kogo_ruch == stale.GRACZ and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    mouseX, mouseY = event.pos
-                    if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
-                        osy = (mouseY // stale.ROZMIAR_POLA)
-                        osx = (mouseX // stale.ROZMIAR_POLA)
-                        kogo_ruch, ilosc, blad = poruszanie.postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
-
-                    # Obsługa ruchów KOMPUTERA
-                elif kogo_ruch == stale.KOMPUTER:
-                    osy, osx = minimax.minimax_ustawianie(stale.GLEBOKOSC, True, plansza)[0]
-                    kogo_ruch, ilosc, blad = poruszanie.postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
-                zwyciezca = sprawdzanie_ruchow.kto_wygral(punkt_gracz, punkt_ai, plansza)
-                if zwyciezca:
-                    wygrana = True
-
+                blad, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana, zwyciezca = pierwszy_etap_gry(blad,
+                                                                                                               event,
+                                                                                                               ilosc,
+                                                                                                               kogo_ruch,
+                                                                                                               plansza,
+                                                                                                               punkt_gracz,
+                                                                                                               punkt_ai,
+                                                                                                               wygrana)
                 punkt_ai, punkt_gracz, koniec = zlicz_punkty(koniec, punkt_gracz, punkt_ai, wygrana, zwyciezca)
 
                 # Przemieszczanie rozstawionych pionków.
             elif ilosc == stale.ILOSC_PIONKOW and not wartosc and not wygrana:
-                # Obsługa ruchów GRACZA
-                if kogo_ruch == stale.GRACZ and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    mouseX, mouseY = event.pos
-                    if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY and not wybrano:
-                        osy0 = (mouseY // stale.ROZMIAR_POLA)
-                        osx0 = (mouseX // stale.ROZMIAR_POLA)
-                        wybrano = True
-                    elif mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY and wybrano:
-                        osy1 = (mouseY // stale.ROZMIAR_POLA)
-                        osx1 = (mouseX // stale.ROZMIAR_POLA)
-                        if sprawdzanie_ruchow.sasiadujace(osx0, osy0, osx1, osy1):
-                            kogo_ruch, blad = poruszanie.porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
-                            wybrano = False
-                        else:
-                            blad = napisy_przyciski.blad_zle_pole
-                            wybrano = False
-                elif kogo_ruch == stale.KOMPUTER:  # Obsługa ruchów KOMPUTERA
-                    index0, index1, _ = minimax.minimax_przemieszczanie(stale.GLEBOKOSC, True, plansza)
-                    osx0, osy0 = index0[1], index0[0]
-                    osx1, osy1 = index1[1], index1[0]
-                    kogo_ruch, blad = poruszanie.porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
-
-                zwyciezca = sprawdzanie_ruchow.kto_wygral(punkt_gracz, punkt_ai, plansza)
-                if zwyciezca:
-                    wygrana = True
-
+                blad, kogo_ruch, plansza, punkt_gracz, punkt_ai, zwyciezca, wygrana, wybrano, osx0, osy0 = drugi_etap_gry(
+                    blad, event, kogo_ruch, plansza, punkt_gracz, punkt_ai, wybrano, wygrana, osx0, osy0)
                 punkt_ai, punkt_gracz, koniec = zlicz_punkty(koniec, punkt_gracz, punkt_ai, wygrana, zwyciezca)
 
         # Funkcja ta wyświetla interfejs i oprawę graficzną gry.
