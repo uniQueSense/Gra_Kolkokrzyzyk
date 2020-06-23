@@ -1,18 +1,14 @@
 from obsluga_ruchow.sprawdzanie_ruchow import sasiadujace
 from obsluga_ruchow.sprawdzanie_ruchow import sprawdz_pola
-from dane.stale import GRACZ
-from dane.stale import INF
-from dane.stale import ILOSC_WIERSZY
-from dane.stale import ILOSC_KOLUMN
-from dane.stale import KOMPUTER
-from dane.stale import PUSTO
+from dane import stale
+
 
 
 def ocena_pola(plansza):
     """ Ocena planszy w funkcji minimax"""
-    if sprawdz_pola(plansza) == KOMPUTER:
+    if sprawdz_pola(plansza) == stale.KOMPUTER:
         return 10
-    elif sprawdz_pola(plansza) == GRACZ:
+    elif sprawdz_pola(plansza) == stale.GRACZ:
         return -10
     else:
         return 0
@@ -21,9 +17,9 @@ def ocena_pola(plansza):
 def puste_pola(plansza):
     """ Zapisuje indexy pustych pól w grze """
     index = []
-    for kol in range(ILOSC_KOLUMN):
-        for wiersz in range(ILOSC_WIERSZY):
-            if plansza[wiersz][kol] == PUSTO:
+    for kol in range(stale.ILOSC_KOLUMN):
+        for wiersz in range(stale.ILOSC_WIERSZY):
+            if plansza[wiersz][kol] == stale.PUSTO:
                 index.append((wiersz, kol))
     return index
 
@@ -31,9 +27,9 @@ def puste_pola(plansza):
 def pola_zajete(plansza):
     """ Zapisuje indexy zajętych pól w grze """
     index = []
-    for kol in range(ILOSC_KOLUMN):
-        for wiersz in range(ILOSC_WIERSZY):
-            if plansza[wiersz][kol] != PUSTO:
+    for kol in range(stale.ILOSC_KOLUMN):
+        for wiersz in range(stale.ILOSC_WIERSZY):
+            if plansza[wiersz][kol] != stale.PUSTO:
                 index.append((wiersz, kol))
     return index
 
@@ -45,10 +41,10 @@ def minimax_ustawianie(poziom, max, plansza):
         return None, ocena_pola(plansza)
     if max:
         index = puste[0]
-        wartosc = -INF
+        wartosc = -stale.INF
         for wiersz, kol in puste:
             tab = [[kol for kol in wiersz] for wiersz in plansza]
-            tab[wiersz][kol] = KOMPUTER
+            tab[wiersz][kol] = stale.KOMPUTER
             _, stan = minimax_ustawianie(poziom - 1, False, tab)
             if stan >= wartosc:
                 wartosc = stan
@@ -56,10 +52,10 @@ def minimax_ustawianie(poziom, max, plansza):
         return index, wartosc
     else:
         index = puste[0]
-        wartosc = INF
+        wartosc = stale.INF
         for wiersz, kol in puste:
             tab = [[kol for kol in wiersz] for wiersz in plansza]
-            tab[wiersz][kol] = GRACZ
+            tab[wiersz][kol] = stale.GRACZ
             _, stan = minimax_ustawianie(poziom - 1, True, tab)
             if stan < wartosc:
                 wartosc = stan
@@ -76,13 +72,13 @@ def minimax_przemieszczanie(poziom, max, plansza):
     elif max:
         index0 = zajete[0]
         index1 = puste[0]
-        wartosc = -INF
+        wartosc = -stale.INF
         for wiersz, kol in zajete:
             tab = [[kol for kol in wiersz] for wiersz in plansza]
             for wiersz_wstaw, kol_wstaw in puste:
-                if sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == KOMPUTER:
-                    tab[wiersz][kol] = PUSTO
-                    tab[wiersz_wstaw][kol_wstaw] = KOMPUTER
+                if sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == stale.KOMPUTER:
+                    tab[wiersz][kol] = stale.PUSTO
+                    tab[wiersz_wstaw][kol_wstaw] = stale.KOMPUTER
                     _, _, stan = minimax_przemieszczanie(poziom - 1, False, tab)
                     if stan > wartosc:
                         wartosc = stan
@@ -92,13 +88,13 @@ def minimax_przemieszczanie(poziom, max, plansza):
     else:
         index0 = zajete[0]
         index1 = puste[0]
-        wartosc = INF
+        wartosc = stale.INF
         for wiersz, kol in zajete:
             tab = [[kol for kol in wiersz] for wiersz in plansza]
             for wiersz_wstaw, kol_wstaw in puste:
-                if sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == GRACZ:
-                    tab[wiersz][kol] = PUSTO
-                    tab[wiersz_wstaw][kol_wstaw] = GRACZ
+                if sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == stale.GRACZ:
+                    tab[wiersz][kol] = stale.PUSTO
+                    tab[wiersz_wstaw][kol_wstaw] = stale.GRACZ
                     _, _, stan = minimax_przemieszczanie(poziom - 1, True, tab)
                     if stan < wartosc:
                         wartosc = stan

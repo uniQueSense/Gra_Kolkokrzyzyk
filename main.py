@@ -1,6 +1,6 @@
 import pygame
 import sys
-import time
+
 
 from funkcje_rysujace.napisy_przyciski import blad_zle_pole
 from funkcje_rysujace.napisy_przyciski import brak_bledu
@@ -16,18 +16,8 @@ from funkcje_rysujace.plansza import stworz_tablice
 from obsluga_ruchow.poruszanie import postaw_znak
 from obsluga_ruchow.poruszanie import porusz_znak
 from obsluga_ruchow.sprawdzanie_ruchow import kto_wygral
-from dane.stale import GRACZ
-from dane.stale import GLEBOKOSC
-from dane.stale import ILOSC_PIONKOW
-from dane.stale import KOMPUTER
-from dane.stale import KOLOR2_WYBORU_GRACZA
-from dane.stale import KOLOR1_WYBORU_GRACZA
-from dane.stale import KOLOR_P_WSTECZ
-from dane.stale import PRZYCISKI_KOLOR1
-from dane.stale import PRZYCISKI_KOLOR2
-from dane.stale import ROZMIAR_POLA
-from dane.stale import ROZMIAR_PLANSZY
-from dane.stale import ROZMIAR
+from dane import stale
+from dane import kolory
 from sztuczna_inteligencja.minimax import minimax_ustawianie
 from sztuczna_inteligencja.minimax import minimax_przemieszczanie
 from sztuczna_inteligencja.minimax import sasiadujace
@@ -35,7 +25,7 @@ from sztuczna_inteligencja.minimax import sasiadujace
 
 def main():
     ''' Zmienne '''
-    kogo_ruch = GRACZ
+    kogo_ruch = stale.GRACZ
     zwyciezca = 0
     ilosc = 0  # zlicza ruchy, kontroluje ilosc pionków w grze
     wartosc = False  # zmienna sprawdzająca czy menu zostało otwarte
@@ -49,7 +39,7 @@ def main():
     pygame.init()
 
     pygame.font.get_fonts()
-    okno = pygame.display.set_mode(ROZMIAR)
+    okno = pygame.display.set_mode(stale.ROZMIAR)
     pygame.display.set_caption("* * * * Kółko i krzyżyk * * * *")
 
     while True:
@@ -65,7 +55,7 @@ def main():
                 if p_reset.isOver(pos) and wygrana:
                     plansza = stworz_tablice()
                     ilosc = 0
-                    kogo_ruch = GRACZ
+                    kogo_ruch = stale.GRACZ
                     wygrana = False
                     koniec = True
                 if p_wyjscie.isOver(pos):
@@ -76,55 +66,55 @@ def main():
                         wartosc = True
                 else:
                     if p_gracz.isOver(pos):
-                        kogo_ruch = GRACZ
+                        kogo_ruch = stale.GRACZ
                     if p_komputer.isOver(pos):
-                        kogo_ruch = KOMPUTER
+                        kogo_ruch = stale.KOMPUTER
                     if p_wstecz.isOver(pos):
                         wartosc = False
 
                     ''' Zmiana barwy po najcheaniu na przyciski.'''
             if event.type == pygame.MOUSEMOTION:
                 if p_reset.isOver(pos):
-                    p_reset.kolor = PRZYCISKI_KOLOR2
+                    p_reset.kolor = kolory.PRZYCISKI_KOLOR2
                 else:
-                    p_reset.kolor = PRZYCISKI_KOLOR1
+                    p_reset.kolor = kolory.PRZYCISKI_KOLOR1
                 if p_wyjscie.isOver(pos):
-                    p_wyjscie.kolor = PRZYCISKI_KOLOR2
+                    p_wyjscie.kolor = kolory.PRZYCISKI_KOLOR2
                 else:
-                    p_wyjscie.kolor = PRZYCISKI_KOLOR1
+                    p_wyjscie.kolor = kolory.PRZYCISKI_KOLOR1
                 if p_menu.isOver(pos):
-                    p_menu.kolor = PRZYCISKI_KOLOR2
+                    p_menu.kolor = kolory.PRZYCISKI_KOLOR2
                 else:
-                    p_menu.kolor = PRZYCISKI_KOLOR1
+                    p_menu.kolor = kolory.PRZYCISKI_KOLOR1
                 if wartosc:
                     if p_wstecz.isOver(pos):
-                        p_wstecz.kolor = PRZYCISKI_KOLOR2
+                        p_wstecz.kolor = kolory.PRZYCISKI_KOLOR2
                     else:
-                        p_wstecz.kolor = KOLOR_P_WSTECZ
+                        p_wstecz.kolor = kolory.KOLOR_P_WSTECZ
                     if p_komputer.isOver(pos):
-                        p_komputer.kolor = KOLOR1_WYBORU_GRACZA
+                        p_komputer.kolor = kolory.KOLOR1_WYBORU_GRACZA
                     else:
-                        p_komputer.kolor = KOLOR2_WYBORU_GRACZA
+                        p_komputer.kolor = kolory.KOLOR2_WYBORU_GRACZA
                     if p_gracz.isOver(pos):
-                        p_gracz.kolor = KOLOR1_WYBORU_GRACZA
+                        p_gracz.kolor = kolory.KOLOR1_WYBORU_GRACZA
                     else:
-                        p_gracz.kolor = KOLOR2_WYBORU_GRACZA
+                        p_gracz.kolor = kolory.KOLOR2_WYBORU_GRACZA
 
             ''' Rozstawianie pionków po przez wciśnięcie myszki w danym polu,
                 zmienna ilosc zlicza nam ile pionkow zostalo juz rozstawionych '''
-            if ilosc != ILOSC_PIONKOW and not wartosc and not wygrana:
+            if ilosc != stale.ILOSC_PIONKOW and not wartosc and not wygrana:
 
                 ''' Obsługa ruchów GRACZA '''
-                if kogo_ruch == GRACZ and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if kogo_ruch == stale.GRACZ and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     mouseX, mouseY = event.pos
-                    if mouseX <= ROZMIAR_PLANSZY and mouseY <= ROZMIAR_PLANSZY:
-                        osy = (mouseY // ROZMIAR_POLA)
-                        osx = (mouseX // ROZMIAR_POLA)
+                    if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
+                        osy = (mouseY // stale.ROZMIAR_POLA)
+                        osx = (mouseX // stale.ROZMIAR_POLA)
                         kogo_ruch, ilosc, blad = postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
 
                     ''' Obsługa róchów KOMPUTERA '''
-                elif kogo_ruch == KOMPUTER:
-                    index = minimax_ustawianie(GLEBOKOSC, True, plansza)[0]
+                elif kogo_ruch == stale.KOMPUTER:
+                    index = minimax_ustawianie(stale.GLEBOKOSC, True, plansza)[0]
                     osx = index[1]
                     osy = index[0]
                     kogo_ruch, ilosc, blad = postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
@@ -132,24 +122,24 @@ def main():
                 if zwyciezca:
                     wygrana = True
                 if koniec and wygrana:
-                    if zwyciezca == GRACZ:
+                    if zwyciezca == stale.GRACZ:
                         punkt_gracz += 1
-                    elif zwyciezca == KOMPUTER:
+                    elif zwyciezca == stale.KOMPUTER:
                         punkt_ai += 1
                     koniec = False
 
                 ''' Przemieszczanie rozstawionych pionków.'''
-            elif ilosc == ILOSC_PIONKOW and not wartosc and not wygrana:
+            elif ilosc == stale.ILOSC_PIONKOW and not wartosc and not wygrana:
                 ''' Obsługa ruchów GRACZA '''
-                if kogo_ruch == GRACZ and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if kogo_ruch == stale.GRACZ and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     mouseX, mouseY = event.pos
-                    if mouseX <= ROZMIAR_PLANSZY and mouseY <= ROZMIAR_PLANSZY and not wybrano:
-                        osy0 = (mouseY // ROZMIAR_POLA)
-                        osx0 = (mouseX // ROZMIAR_POLA)
+                    if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY and not wybrano:
+                        osy0 = (mouseY // stale.ROZMIAR_POLA)
+                        osx0 = (mouseX // stale.ROZMIAR_POLA)
                         wybrano = True
-                    elif mouseX <= ROZMIAR_PLANSZY and mouseY <= ROZMIAR_PLANSZY and wybrano:
-                        osy1 = (mouseY // ROZMIAR_POLA)
-                        osx1 = (mouseX // ROZMIAR_POLA)
+                    elif mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY and wybrano:
+                        osy1 = (mouseY // stale.ROZMIAR_POLA)
+                        osx1 = (mouseX // stale.ROZMIAR_POLA)
                         if sasiadujace(osx0, osy0, osx1, osy1):
                             kogo_ruch, blad = porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
                             wybrano = False
@@ -158,8 +148,8 @@ def main():
                             wybrano = False
 
                             ''' Obsługa ruchów KOMPUTERA '''
-                elif kogo_ruch == KOMPUTER:
-                    index0, index1, _ = minimax_przemieszczanie(GLEBOKOSC, True, plansza)
+                elif kogo_ruch == stale.KOMPUTER:
+                    index0, index1, _ = minimax_przemieszczanie(stale.GLEBOKOSC, True, plansza)
                     osx0, osy0 = index0[1], index0[0]
                     osx1, osy1 = index1[1], index1[0]
                     kogo_ruch, blad = porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
@@ -170,9 +160,9 @@ def main():
 
                     ''' Dodawanie punktów GRACZA lub KOMPUTERA'''
                 if koniec and wygrana:
-                    if zwyciezca == GRACZ:
+                    if zwyciezca == stale.GRACZ:
                         punkt_gracz += 1
-                    elif zwyciezca == KOMPUTER:
+                    elif zwyciezca == stale.KOMPUTER:
                         punkt_ai += 1
                     koniec = False
 

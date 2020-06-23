@@ -1,6 +1,6 @@
 import pygame
 
-from dane.stale import CZCIONKA
+from dane import stale
 
 
 class Blok:
@@ -49,7 +49,7 @@ class Przycisk:
         pygame.draw.rect(screen, self.kolor, (self.osx, self.osy, self.dlugosc, self.wysokosc), 0)
 
         if self.tekst:
-            font = pygame.font.SysFont(CZCIONKA, 60)
+            font = pygame.font.SysFont(stale.CZCIONKA, 60)
             tekst = font.render(self.tekst, 1, self.kolor_tekst)
             screen.blit(tekst, (self.osx + (self.dlugosc / 2 - tekst.get_width() / 2),
                                 self.osy - (self.wysokosc / 2 - tekst.get_height() * 0.6)))

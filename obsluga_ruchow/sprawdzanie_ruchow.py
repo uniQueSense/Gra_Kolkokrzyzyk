@@ -1,33 +1,31 @@
-from dane.stale import GRACZ
-from dane.stale import ILOSC_KOLUMN
-from dane.stale import ILOSC_WIERSZY
-from dane.stale import KOMPUTER
+from dane import stale
+
 
 
 def sprawdz_pola(plansza):
     """ Sprawdzanie czy ktoś nie wygrał i zawracanie zwyciezcy """
-    for kolumna in range(ILOSC_KOLUMN):
+    for kolumna in range(stale.ILOSC_KOLUMN):
         if plansza[0][kolumna] == plansza[1][kolumna] == plansza[2][kolumna]:
-            if plansza[0][kolumna] == GRACZ:
-                return GRACZ
-            elif plansza[0][kolumna] == KOMPUTER:
-                return KOMPUTER
-    for wiersz in range(ILOSC_WIERSZY):
+            if plansza[0][kolumna] == stale.GRACZ:
+                return stale.GRACZ
+            elif plansza[0][kolumna] == stale.KOMPUTER:
+                return stale.KOMPUTER
+    for wiersz in range(stale.ILOSC_WIERSZY):
         if plansza[wiersz][0] == plansza[wiersz][1] == plansza[wiersz][2]:
-            if plansza[wiersz][0] == GRACZ:
-                return GRACZ
-            elif plansza[wiersz][0] == KOMPUTER:
-                return KOMPUTER
+            if plansza[wiersz][0] == stale.GRACZ:
+                return stale.GRACZ
+            elif plansza[wiersz][0] == stale.KOMPUTER:
+                return stale.KOMPUTER
     if plansza[0][0] == plansza[1][1] == plansza[2][2]:
-        if plansza[0][0] == GRACZ:
-            return GRACZ
-        elif plansza[0][0] == KOMPUTER:
-            return KOMPUTER
+        if plansza[0][0] == stale.GRACZ:
+            return stale.GRACZ
+        elif plansza[0][0] == stale.KOMPUTER:
+            return stale.KOMPUTER
     if plansza[0][2] == plansza[1][1] == plansza[2][0]:
-        if plansza[1][1] == GRACZ:
-            return GRACZ
-        elif plansza[1][1] == KOMPUTER:
-            return KOMPUTER
+        if plansza[1][1] == stale.GRACZ:
+            return stale.GRACZ
+        elif plansza[1][1] == stale.KOMPUTER:
+            return stale.KOMPUTER
     return 0
 
 
@@ -42,9 +40,9 @@ def sasiadujace(osx0, osy0, osx1, osy1):
 def kto_wygral(punkt_gracz, punkt_ai, plansza):
     zwycięzca = sprawdz_pola(plansza)
     if zwycięzca:
-        if zwycięzca == GRACZ:
+        if zwycięzca == stale.GRACZ:
             punkt_gracz += 1
-        if zwycięzca == KOMPUTER:
+        if zwycięzca == stale.KOMPUTER:
             punkt_ai += 1
         zwycięzca = sprawdz_pola(plansza)
         return zwycięzca
