@@ -1,11 +1,11 @@
 from obsluga_ruchow.sprawdzanie_ruchow import sasiadujace
 from obsluga_ruchow.sprawdzanie_ruchow import sprawdz_pola
-from stale.stale import GRACZ
-from stale.stale import INF
-from stale.stale import ILOSC_WIERSZY
-from stale.stale import ILOSC_KOLUMN
-from stale.stale import KOMPUTER
-from stale.stale import PUSTO
+from dane.stale import GRACZ
+from dane.stale import INF
+from dane.stale import ILOSC_WIERSZY
+from dane.stale import ILOSC_KOLUMN
+from dane.stale import KOMPUTER
+from dane.stale import PUSTO
 
 
 def ocena_pola(plansza):
@@ -41,7 +41,7 @@ def pola_zajete(plansza):
 def minimax_ustawianie(poziom, max, plansza):
     """ Funkcja minimax do etapu rozstawiania pionków """
     puste = puste_pola(plansza)
-    if not poziom or not len(puste):
+    if not poziom:
         return None, ocena_pola(plansza)
     if max:
         index = puste[0]
@@ -49,7 +49,7 @@ def minimax_ustawianie(poziom, max, plansza):
         for wiersz, kol in puste:
             tab = [[kol for kol in wiersz] for wiersz in plansza]
             tab[wiersz][kol] = KOMPUTER
-            k, stan = minimax_ustawianie(poziom - 1, False, tab)
+            _, stan = minimax_ustawianie(poziom - 1, False, tab)
             if stan >= wartosc:
                 wartosc = stan
                 index = [wiersz, kol]
@@ -60,7 +60,7 @@ def minimax_ustawianie(poziom, max, plansza):
         for wiersz, kol in puste:
             tab = [[kol for kol in wiersz] for wiersz in plansza]
             tab[wiersz][kol] = GRACZ
-            k, stan = minimax_ustawianie(poziom - 1, True, tab)
+            _, stan = minimax_ustawianie(poziom - 1, True, tab)
             if stan < wartosc:
                 wartosc = stan
                 index = [wiersz, kol]
@@ -83,7 +83,7 @@ def minimax_przemieszczanie(poziom, max, plansza):
                 if sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == KOMPUTER:
                     tab[wiersz][kol] = PUSTO
                     tab[wiersz_wstaw][kol_wstaw] = KOMPUTER
-                    k, j, stan = minimax_przemieszczanie(poziom - 1, False, tab)
+                    _, _, stan = minimax_przemieszczanie(poziom - 1, False, tab)
                     if stan > wartosc:
                         wartosc = stan
                         index0 = [wiersz, kol]
@@ -99,7 +99,7 @@ def minimax_przemieszczanie(poziom, max, plansza):
                 if sasiadujace(kol, wiersz, kol_wstaw, wiersz_wstaw) and tab[wiersz][kol] == GRACZ:
                     tab[wiersz][kol] = PUSTO
                     tab[wiersz_wstaw][kol_wstaw] = GRACZ
-                    k, j, stan = minimax_przemieszczanie(poziom - 1, True, tab)
+                    _, _, stan = minimax_przemieszczanie(poziom - 1, True, tab)
                     if stan < wartosc:
                         wartosc = stan
                         index0 = [wiersz, kol]

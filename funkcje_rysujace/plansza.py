@@ -1,7 +1,7 @@
 import pygame
-from stale.stale import PUSTO
-from stale.stale import ROZMIAR_POLA
-from stale.stale import WYMIAR_PLANSZY
+from dane.stale import PUSTO
+from dane.stale import ROZMIAR_POLA
+from dane.stale import WYMIAR_PLANSZY
 
 
 def rysuj_pole_gry(okno):

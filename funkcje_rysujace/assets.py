@@ -1,9 +1,9 @@
 from funkcje_rysujace.klasy import Tekst
-from stale.stale import CZCIONKA
-from stale.stale import KOLOR_TEKSTU
-from stale.stale import OPIS_ROZM
-from stale.stale import OSX_INFO
-from stale.stale import OSY_INFO
+from dane.stale import CZCIONKA
+from dane.stale import KOLOR_TEKSTU
+from dane.stale import OPIS_ROZM
+from dane.stale import OSX_INFO
+from dane.stale import OSY_INFO
 
 
 class Assets:

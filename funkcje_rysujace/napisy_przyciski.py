@@ -4,62 +4,62 @@ from funkcje_rysujace.klasy import Przycisk
 from funkcje_rysujace.pionki import rysuj_pionek
 from funkcje_rysujace.plansza import rysuj_pole_gry
 from funkcje_rysujace.klasy import Tekst
-from stale.stale import BLAD_ROZM
-from stale.stale import CZCIONKA
-from stale.stale import DL_PRZYCISKU1
-from stale.stale import DL_PRZYCISKU2
-from stale.stale import DL_PRZYCISKU3
-from stale.stale import DL_POLE_INF
-from stale.stale import GRACZ
-from stale.stale import KOLOR_AI
-from stale.stale import KOLOR_BLEDU
-from stale.stale import KOLOR_GRACZA
-from stale.stale import KOLOR_KOGO_RUCH
-from stale.stale import KOLOR_MENU
-from stale.stale import KOLOR_POLE_INF
-from stale.stale import KOLOR_PRZYCISK_NAWIGACJI
-from stale.stale import KOLOR_P_WSTECZ
-from stale.stale import KOLOR_TEKSTU
-from stale.stale import KOLOR_TEKST_P_MENU
-from stale.stale import KOLOR_TEKSTU_PRZYCISKI
-from stale.stale import KOLOR_TLO
-from stale.stale import KOLOR_WYNIK
-from stale.stale import KOMPUTER
-from stale.stale import OSX_BLAD
-from stale.stale import OSY_BLAD
-from stale.stale import OSY_BLAD_NAGLOWEK
-from stale.stale import OSX_INFO_RUCH
-from stale.stale import OSY_INFO_RUCH
-from stale.stale import OSX_NAGLOWEK
-from stale.stale import OSY_NAGLOWEK
-from stale.stale import OSX_NAPIS_AI
-from stale.stale import OSY_NAPIS_AI
-from stale.stale import OSX_NAPIS_GRACZ
-from stale.stale import OSY_NAPIS_GRACZ
-from stale.stale import OSY_NAPIS_KTO
-from stale.stale import OSX_NAPIS_KTO
-from stale.stale import OSX_PKT
-from stale.stale import OSY_PKT
-from stale.stale import OSX_PLANSZA
-from stale.stale import OSY_PLANSZA
-from stale.stale import OSX_POLE_INF
-from stale.stale import OSY_POLE_INF
-from stale.stale import OSX_PRZEKAZ_WYNIK
-from stale.stale import OSY_PRZEKAZ_WYNIK
-from stale.stale import OSX_PRZYCISKOW1
-from stale.stale import OSY_PRZYCISKOW1
-from stale.stale import OSX_PRZYCISKOW2
-from stale.stale import OSY_PRZYCISKOW2
-from stale.stale import OSX_PRZYCISKOW3
-from stale.stale import OSY_PRZYCISKOW3
-from stale.stale import OSX_PRZYCISKOW4
-from stale.stale import ROZ_CZCIONKI_RUCH
-from stale.stale import ROZ_CZCIONKI_WYNIK
-from stale.stale import ROZMIAR_TEKSTU1
-from stale.stale import ROZMIAR_TEKSTU2
-from stale.stale import ROZMIAR_PLANSZY
-from stale.stale import WYS_PRZYCISKU1
-from stale.stale import WYS_POLE_INF
+from dane.stale import BLAD_ROZM
+from dane.stale import CZCIONKA
+from dane.stale import DL_PRZYCISKU1
+from dane.stale import DL_PRZYCISKU2
+from dane.stale import DL_PRZYCISKU3
+from dane.stale import DL_POLE_INF
+from dane.stale import GRACZ
+from dane.stale import KOLOR_AI
+from dane.stale import KOLOR_BLEDU
+from dane.stale import KOLOR_GRACZA
+from dane.stale import KOLOR_KOGO_RUCH
+from dane.stale import KOLOR_MENU
+from dane.stale import KOLOR_POLE_INF
+from dane.stale import KOLOR_PRZYCISK_NAWIGACJI
+from dane.stale import KOLOR_P_WSTECZ
+from dane.stale import KOLOR_TEKSTU
+from dane.stale import KOLOR_TEKST_P_MENU
+from dane.stale import KOLOR_TEKSTU_PRZYCISKI
+from dane.stale import KOLOR_TLO
+from dane.stale import KOLOR_WYNIK
+from dane.stale import KOMPUTER
+from dane.stale import OSX_BLAD
+from dane.stale import OSY_BLAD
+from dane.stale import OSY_BLAD_NAGLOWEK
+from dane.stale import OSX_INFO_RUCH
+from dane.stale import OSY_INFO_RUCH
+from dane.stale import OSX_NAGLOWEK
+from dane.stale import OSY_NAGLOWEK
+from dane.stale import OSX_NAPIS_AI
+from dane.stale import OSY_NAPIS_AI
+from dane.stale import OSX_NAPIS_GRACZ
+from dane.stale import OSY_NAPIS_GRACZ
+from dane.stale import OSY_NAPIS_KTO
+from dane.stale import OSX_NAPIS_KTO
+from dane.stale import OSX_PKT
+from dane.stale import OSY_PKT
+from dane.stale import OSX_PLANSZA
+from dane.stale import OSY_PLANSZA
+from dane.stale import OSX_POLE_INF
+from dane.stale import OSY_POLE_INF
+from dane.stale import OSX_PRZEKAZ_WYNIK
+from dane.stale import OSY_PRZEKAZ_WYNIK
+from dane.stale import OSX_PRZYCISKOW1
+from dane.stale import OSY_PRZYCISKOW1
+from dane.stale import OSX_PRZYCISKOW2
+from dane.stale import OSY_PRZYCISKOW2
+from dane.stale import OSX_PRZYCISKOW3
+from dane.stale import OSY_PRZYCISKOW3
+from dane.stale import OSX_PRZYCISKOW4
+from dane.stale import ROZ_CZCIONKI_RUCH
+from dane.stale import ROZ_CZCIONKI_WYNIK
+from dane.stale import ROZMIAR_TEKSTU1
+from dane.stale import ROZMIAR_TEKSTU2
+from dane.stale import ROZMIAR_PLANSZY
+from dane.stale import WYS_PRZYCISKU1
+from dane.stale import WYS_POLE_INF
 
 ''' Przyciski w GUI '''
 p_reset = Przycisk(KOLOR_PRZYCISK_NAWIGACJI, KOLOR_TEKSTU_PRZYCISKI, OSX_PRZYCISKOW1, OSY_PRZYCISKOW1, DL_PRZYCISKU1,
@@ -89,28 +89,24 @@ t_kto_zaczyna = Tekst(OSX_NAPIS_KTO, OSY_NAPIS_KTO, KOLOR_TEKSTU, ROZMIAR_TEKSTU
 
 """ Błędy wyświetlane podczas nieprawidłowego ruchu przez gracza """
 t_blad_naglowek = Tekst(OSX_BLAD, OSY_BLAD_NAGLOWEK, KOLOR_TEKSTU, BLAD_ROZM, CZCIONKA, 'Błąd:')
-blad1 = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA,
+blad_puste_pole = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA,
               'Wybrałeś pole na którym nie ma pionka.')
-blad2 = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA, 'Wybrałeś pionek przeciwnika.')
-blad3 = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA, 'To pole jest zajęte.')
-blad4 = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA,
+blad_zly_pionek = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA, 'Wybrałeś pionek przeciwnika.')
+blad_zajete_pole = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA, 'To pole jest zajęte.')
+blad_zle_pole = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA,
               'To pole nie sąsiaduje z wybranym pionkiem.')
-blad5 = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA, 'Brak błędu.')
+brak_bledu = Tekst(OSX_BLAD, OSY_BLAD, KOLOR_BLEDU, BLAD_ROZM, CZCIONKA, 'Brak błędu.')
 
 
 def przekaz_ture(kogo_ruch, wygrana):
     if not wygrana:
         if kogo_ruch == GRACZ:
             kto = " Gracz"
-            return Tekst(OSX_INFO_RUCH, OSY_INFO_RUCH, KOLOR_KOGO_RUCH, ROZ_CZCIONKI_RUCH, CZCIONKA,
-                         'Ruch: {}'.format(kto))
         elif kogo_ruch == KOMPUTER:
             kto = " Komputer"
-            return Tekst(OSX_INFO_RUCH, OSY_INFO_RUCH, KOLOR_KOGO_RUCH, ROZ_CZCIONKI_RUCH, CZCIONKA,
-                         'Ruch: {}'.format(kto))
     else:
         kto = " Koniec gry"
-        return Tekst(OSX_INFO_RUCH, OSY_INFO_RUCH, KOLOR_KOGO_RUCH, ROZ_CZCIONKI_RUCH, CZCIONKA, 'Ruch: {}'.format(kto))
+    return Tekst(OSX_INFO_RUCH, OSY_INFO_RUCH, KOLOR_KOGO_RUCH, ROZ_CZCIONKI_RUCH, CZCIONKA, 'Ruch: {}'.format(kto))
 
 
 def przekaz_wynik(zwycięzca, okno):

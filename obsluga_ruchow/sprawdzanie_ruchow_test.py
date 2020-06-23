@@ -2,9 +2,9 @@ import unittest
 
 from funkcje_rysujace.plansza import stworz_tablice
 from obsluga_ruchow.sprawdzanie_ruchow import sprawdz_pola
-from stale.stale import GRACZ
-from stale.stale import KOMPUTER
-from stale.stale import PUSTO
+from dane.stale import GRACZ
+from dane.stale import KOMPUTER
+from dane.stale import PUSTO
 
 
 class Postaw_Znak_Tests(unittest.TestCase):

@@ -1,6 +1,6 @@
 import pygame
 
-from stale.stale import CZCIONKA
+from dane.stale import CZCIONKA
 
 
 class Blok:

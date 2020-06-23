@@ -2,8 +2,8 @@ import pygame
 import sys
 import time
 
-from funkcje_rysujace.napisy_przyciski import blad4
-from funkcje_rysujace.napisy_przyciski import blad5
+from funkcje_rysujace.napisy_przyciski import blad_zle_pole
+from funkcje_rysujace.napisy_przyciski import brak_bledu
 from funkcje_rysujace.napisy_przyciski import p_menu
 from funkcje_rysujace.napisy_przyciski import p_wstecz
 from funkcje_rysujace.napisy_przyciski import p_reset
@@ -16,18 +16,18 @@ from funkcje_rysujace.plansza import stworz_tablice
 from obsluga_ruchow.poruszanie import postaw_znak
 from obsluga_ruchow.poruszanie import porusz_znak
 from obsluga_ruchow.sprawdzanie_ruchow import kto_wygral
-from stale.stale import GRACZ
-from stale.stale import GLEBOKOSC
-from stale.stale import ILOSC_PIONKOW
-from stale.stale import KOMPUTER
-from stale.stale import KOLOR2_WYBORU_GRACZA
-from stale.stale import KOLOR1_WYBORU_GRACZA
-from stale.stale import KOLOR_P_WSTECZ
-from stale.stale import PRZYCISKI_KOLOR1
-from stale.stale import PRZYCISKI_KOLOR2
-from stale.stale import ROZMIAR_POLA
-from stale.stale import ROZMIAR_PLANSZY
-from stale.stale import ROZMIAR
+from dane.stale import GRACZ
+from dane.stale import GLEBOKOSC
+from dane.stale import ILOSC_PIONKOW
+from dane.stale import KOMPUTER
+from dane.stale import KOLOR2_WYBORU_GRACZA
+from dane.stale import KOLOR1_WYBORU_GRACZA
+from dane.stale import KOLOR_P_WSTECZ
+from dane.stale import PRZYCISKI_KOLOR1
+from dane.stale import PRZYCISKI_KOLOR2
+from dane.stale import ROZMIAR_POLA
+from dane.stale import ROZMIAR_PLANSZY
+from dane.stale import ROZMIAR
 from sztuczna_inteligencja.minimax import minimax_ustawianie
 from sztuczna_inteligencja.minimax import minimax_przemieszczanie
 from sztuczna_inteligencja.minimax import sasiadujace
@@ -44,7 +44,7 @@ def main():
     koniec = True
     plansza = stworz_tablice()
     punkt_gracz, punkt_ai = 0, 0  # zmienna zliczajaca punkty gracza / komputera
-    blad = blad5  # zmienna przechowujaca blad, domyslnie blad5 oznacza brak błędu
+    blad = brak_bledu  # zmienna przechowujaca blad, domyslnie blad5 oznacza brak błędu
 
     pygame.init()
 
@@ -127,7 +127,6 @@ def main():
                     index = minimax_ustawianie(GLEBOKOSC, True, plansza)[0]
                     osx = index[1]
                     osy = index[0]
-                    time.sleep(1)
                     kogo_ruch, ilosc, blad = postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
                 zwyciezca = kto_wygral(punkt_gracz, punkt_ai, plansza)
                 if zwyciezca:
@@ -155,15 +154,14 @@ def main():
                             kogo_ruch, blad = porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
                             wybrano = False
                         else:
-                            blad = blad4
+                            blad = blad_zle_pole
                             wybrano = False
 
-                            ''' Obsługa róchów KOMPUTERA '''
+                            ''' Obsługa ruchów KOMPUTERA '''
                 elif kogo_ruch == KOMPUTER:
-                    index0, index1, l = minimax_przemieszczanie(GLEBOKOSC, True, plansza)
+                    index0, index1, _ = minimax_przemieszczanie(GLEBOKOSC, True, plansza)
                     osx0, osy0 = index0[1], index0[0]
                     osx1, osy1 = index1[1], index1[0]
-                    time.sleep(1)
                     kogo_ruch, blad = porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
 
                 zwyciezca = kto_wygral(punkt_gracz, punkt_ai, plansza)

@@ -1,7 +1,7 @@
-from stale.stale import GRACZ
-from stale.stale import ILOSC_KOLUMN
-from stale.stale import ILOSC_WIERSZY
-from stale.stale import KOMPUTER
+from dane.stale import GRACZ
+from dane.stale import ILOSC_KOLUMN
+from dane.stale import ILOSC_WIERSZY
+from dane.stale import KOMPUTER
 
 
 def sprawdz_pola(plansza):
