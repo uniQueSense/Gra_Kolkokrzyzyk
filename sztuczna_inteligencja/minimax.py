@@ -1,14 +1,12 @@
-from obsluga_ruchow.sprawdzanie_ruchow import sasiadujace
-from obsluga_ruchow.sprawdzanie_ruchow import sprawdz_pola
 from dane import stale
-
+from obsluga_ruchow import sprawdzanie_ruchow
 
 
 def ocena_pola(plansza):
     """ Ocena planszy w funkcji minimax"""
-    if sprawdz_pola(plansza) == stale.KOMPUTER:
+    if sprawdzanie_ruchow.sprawdz_pola(plansza) == stale.KOMPUTER:
         return 10
-    elif sprawdz_pola(plansza) == stale.GRACZ:
+    elif sprawdzanie_ruchow.sprawdz_pola(plansza) == stale.GRACZ:
         return -10
     else:
         return 0

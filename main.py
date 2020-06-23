@@ -1,26 +1,13 @@
 import pygame
 import sys
 
-
-from funkcje_rysujace.napisy_przyciski import blad_zle_pole
-from funkcje_rysujace.napisy_przyciski import brak_bledu
-from funkcje_rysujace.napisy_przyciski import p_menu
-from funkcje_rysujace.napisy_przyciski import p_wstecz
-from funkcje_rysujace.napisy_przyciski import p_reset
-from funkcje_rysujace.napisy_przyciski import p_wyjscie
-from funkcje_rysujace.napisy_przyciski import p_gracz
-from funkcje_rysujace.napisy_przyciski import p_komputer
-from funkcje_rysujace.napisy_przyciski import przekaz_wynik
-from funkcje_rysujace.napisy_przyciski import nadpisz
-from funkcje_rysujace.plansza import stworz_tablice
-from obsluga_ruchow.poruszanie import postaw_znak
-from obsluga_ruchow.poruszanie import porusz_znak
-from obsluga_ruchow.sprawdzanie_ruchow import kto_wygral
-from dane import stale
 from dane import kolory
-from sztuczna_inteligencja.minimax import minimax_ustawianie
-from sztuczna_inteligencja.minimax import minimax_przemieszczanie
-from sztuczna_inteligencja.minimax import sasiadujace
+from dane import stale
+from funkcje_rysujace import napisy_przyciski
+from funkcje_rysujace import obszar_gry
+from obsluga_ruchow import poruszanie
+from obsluga_ruchow import sprawdzanie_ruchow
+from sztuczna_inteligencja import minimax
 
 
 def main():
@@ -32,9 +19,9 @@ def main():
     wygrana = False
     wybrano = False  # sprawdza czy wybrano pionek do przesuniecia
     koniec = True
-    plansza = stworz_tablice()
+    plansza = obszar_gry.stworz_tablice()
     punkt_gracz, punkt_ai = 0, 0  # zmienna zliczajaca punkty gracza / komputera
-    blad = brak_bledu  # zmienna przechowujaca blad, domyslnie blad5 oznacza brak błędu
+    blad = napisy_przyciski.brak_bledu  # zmienna przechowujaca blad, domyslnie blad5 oznacza brak błędu
 
     pygame.init()
 
@@ -52,53 +39,53 @@ def main():
 
             '''*********** obsługa przycisków *************'''
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if p_reset.isOver(pos) and wygrana:
-                    plansza = stworz_tablice()
+                if napisy_przyciski.p_reset.isOver(pos) and wygrana:
+                    plansza = obszar_gry.stworz_tablice()
                     ilosc = 0
                     kogo_ruch = stale.GRACZ
                     wygrana = False
                     koniec = True
-                if p_wyjscie.isOver(pos):
+                if napisy_przyciski.p_wyjscie.isOver(pos):
                     pygame.quit()
                     sys.exit(0)
                 if not wartosc and (not ilosc or wygrana):
-                    if p_menu.isOver(pos):
+                    if napisy_przyciski.p_menu.isOver(pos):
                         wartosc = True
                 else:
-                    if p_gracz.isOver(pos):
+                    if napisy_przyciski.p_gracz.isOver(pos):
                         kogo_ruch = stale.GRACZ
-                    if p_komputer.isOver(pos):
+                    if napisy_przyciski.p_komputer.isOver(pos):
                         kogo_ruch = stale.KOMPUTER
-                    if p_wstecz.isOver(pos):
+                    if napisy_przyciski.p_wstecz.isOver(pos):
                         wartosc = False
 
                     ''' Zmiana barwy po najcheaniu na przyciski.'''
             if event.type == pygame.MOUSEMOTION:
-                if p_reset.isOver(pos):
-                    p_reset.kolor = kolory.PRZYCISKI_KOLOR2
+                if napisy_przyciski.p_reset.isOver(pos):
+                    napisy_przyciski.p_reset.kolor = kolory.PRZYCISKI_KOLOR2
                 else:
-                    p_reset.kolor = kolory.PRZYCISKI_KOLOR1
-                if p_wyjscie.isOver(pos):
-                    p_wyjscie.kolor = kolory.PRZYCISKI_KOLOR2
+                    napisy_przyciski.p_reset.kolor = kolory.PRZYCISKI_KOLOR1
+                if napisy_przyciski.p_wyjscie.isOver(pos):
+                    napisy_przyciski.p_wyjscie.kolor = kolory.PRZYCISKI_KOLOR2
                 else:
-                    p_wyjscie.kolor = kolory.PRZYCISKI_KOLOR1
-                if p_menu.isOver(pos):
-                    p_menu.kolor = kolory.PRZYCISKI_KOLOR2
+                    napisy_przyciski.p_wyjscie.kolor = kolory.PRZYCISKI_KOLOR1
+                if napisy_przyciski.p_menu.isOver(pos):
+                    napisy_przyciski.p_menu.kolor = kolory.PRZYCISKI_KOLOR2
                 else:
-                    p_menu.kolor = kolory.PRZYCISKI_KOLOR1
+                    napisy_przyciski.p_menu.kolor = kolory.PRZYCISKI_KOLOR1
                 if wartosc:
-                    if p_wstecz.isOver(pos):
-                        p_wstecz.kolor = kolory.PRZYCISKI_KOLOR2
+                    if napisy_przyciski.p_wstecz.isOver(pos):
+                        napisy_przyciski.p_wstecz.kolor = kolory.PRZYCISKI_KOLOR2
                     else:
-                        p_wstecz.kolor = kolory.KOLOR_P_WSTECZ
-                    if p_komputer.isOver(pos):
-                        p_komputer.kolor = kolory.KOLOR1_WYBORU_GRACZA
+                        napisy_przyciski.p_wstecz.kolor = kolory.KOLOR_P_WSTECZ
+                    if napisy_przyciski.p_komputer.isOver(pos):
+                        napisy_przyciski.p_komputer.kolor = kolory.KOLOR1_WYBORU_GRACZA
                     else:
-                        p_komputer.kolor = kolory.KOLOR2_WYBORU_GRACZA
-                    if p_gracz.isOver(pos):
-                        p_gracz.kolor = kolory.KOLOR1_WYBORU_GRACZA
+                        napisy_przyciski.p_komputer.kolor = kolory.KOLOR2_WYBORU_GRACZA
+                    if napisy_przyciski.p_gracz.isOver(pos):
+                        napisy_przyciski.p_gracz.kolor = kolory.KOLOR1_WYBORU_GRACZA
                     else:
-                        p_gracz.kolor = kolory.KOLOR2_WYBORU_GRACZA
+                        napisy_przyciski.p_gracz.kolor = kolory.KOLOR2_WYBORU_GRACZA
 
             ''' Rozstawianie pionków po przez wciśnięcie myszki w danym polu,
                 zmienna ilosc zlicza nam ile pionkow zostalo juz rozstawionych '''
@@ -110,15 +97,15 @@ def main():
                     if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
                         osy = (mouseY // stale.ROZMIAR_POLA)
                         osx = (mouseX // stale.ROZMIAR_POLA)
-                        kogo_ruch, ilosc, blad = postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
+                        kogo_ruch, ilosc, blad = poruszanie.postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
 
                     ''' Obsługa róchów KOMPUTERA '''
                 elif kogo_ruch == stale.KOMPUTER:
-                    index = minimax_ustawianie(stale.GLEBOKOSC, True, plansza)[0]
+                    index = minimax.minimax_ustawianie(stale.GLEBOKOSC, True, plansza)[0]
                     osx = index[1]
                     osy = index[0]
-                    kogo_ruch, ilosc, blad = postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
-                zwyciezca = kto_wygral(punkt_gracz, punkt_ai, plansza)
+                    kogo_ruch, ilosc, blad = poruszanie.postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
+                zwyciezca = sprawdzanie_ruchow.kto_wygral(punkt_gracz, punkt_ai, plansza)
                 if zwyciezca:
                     wygrana = True
                 if koniec and wygrana:
@@ -140,21 +127,21 @@ def main():
                     elif mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY and wybrano:
                         osy1 = (mouseY // stale.ROZMIAR_POLA)
                         osx1 = (mouseX // stale.ROZMIAR_POLA)
-                        if sasiadujace(osx0, osy0, osx1, osy1):
-                            kogo_ruch, blad = porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
+                        if sprawdzanie_ruchow.sasiadujace(osx0, osy0, osx1, osy1):
+                            kogo_ruch, blad = poruszanie.porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
                             wybrano = False
                         else:
-                            blad = blad_zle_pole
+                            blad = napisy_przyciski.blad_zle_pole
                             wybrano = False
 
                             ''' Obsługa ruchów KOMPUTERA '''
                 elif kogo_ruch == stale.KOMPUTER:
-                    index0, index1, _ = minimax_przemieszczanie(stale.GLEBOKOSC, True, plansza)
+                    index0, index1, _ = minimax.minimax_przemieszczanie(stale.GLEBOKOSC, True, plansza)
                     osx0, osy0 = index0[1], index0[0]
                     osx1, osy1 = index1[1], index1[0]
-                    kogo_ruch, blad = porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
+                    kogo_ruch, blad = poruszanie.porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
 
-                zwyciezca = kto_wygral(punkt_gracz, punkt_ai, plansza)
+                zwyciezca = sprawdzanie_ruchow.kto_wygral(punkt_gracz, punkt_ai, plansza)
                 if zwyciezca:
                     wygrana = True
 
@@ -167,11 +154,11 @@ def main():
                     koniec = False
 
         ''' Funkcja ta wyświetla interfejs i oprawę graficzną gry. '''
-        nadpisz(wartosc, punkt_ai, punkt_gracz, blad, kogo_ruch, wygrana, plansza, okno)
+        napisy_przyciski.nadpisz(wartosc, punkt_ai, punkt_gracz, blad, kogo_ruch, wygrana, plansza, okno)
 
         ''' Wypisuje zwycięzce. '''
         if wygrana:
-            przekaz_wynik(zwyciezca, okno)
+            napisy_przyciski.przekaz_wynik(zwyciezca, okno)
 
         pygame.display.flip()
 

@@ -1,1 +1,1 @@
-__all__ = ["plansza", "pionki"]
+__all__ = ["obszar_gry.py", "pionki"]

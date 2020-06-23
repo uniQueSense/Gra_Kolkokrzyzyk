@@ -1,7 +1,6 @@
 from dane import stale
 
 
-
 def sprawdz_pola(plansza):
     """ Sprawdzanie czy ktoś nie wygrał i zawracanie zwyciezcy """
     for kolumna in range(stale.ILOSC_KOLUMN):
