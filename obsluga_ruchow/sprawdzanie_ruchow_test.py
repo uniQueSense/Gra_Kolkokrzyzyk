@@ -43,15 +43,13 @@ class Postaw_Znak_Tests(unittest.TestCase):
         self.plansza[1][0] = stale.GRACZ
         self.plansza[2][0] = stale.GRACZ
         self.plansza[0][0] = stale.GRACZ
-        wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertEqual(wynik, stale.GRACZ)
+        self.assertEqual(sprawdzanie_ruchow.sprawdz_pola(self.plansza), stale.GRACZ)
 
     def test_kto_wygral2(self):
         self.plansza[1][0] = stale.GRACZ
         self.plansza[2][0] = stale.GRACZ
         self.plansza[0][0] = stale.GRACZ
-        wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertNotEqual(wynik, stale.KOMPUTER)
+        self.assertNotEqual(sprawdzanie_ruchow.sprawdz_pola(self.plansza), stale.KOMPUTER)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,5 @@
-import pygame
 import sys
+import pygame
 
 from dane import kolory
 from dane import stale
@@ -76,10 +76,10 @@ def obluga_przyciskow(event, ilosc, kogo_ruch, koniec, plansza, pos, wartosc, wy
 def pierwszy_etap_gry(blad, event, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana):
     # Obsługa ruchów GRACZA
     if kogo_ruch == stale.GRACZ and event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-        mouseX, mouseY = event.pos
-        if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
-            osy = (mouseY // stale.ROZMIAR_POLA)
-            osx = (mouseX // stale.ROZMIAR_POLA)
+        mouse_x, mouse_y = event.pos
+        if mouse_x <= stale.ROZMIAR_PLANSZY and mouse_y <= stale.ROZMIAR_PLANSZY:
+            osy = (mouse_y // stale.ROZMIAR_POLA)
+            osx = (mouse_x // stale.ROZMIAR_POLA)
             kogo_ruch, ilosc, blad = poruszanie.postaw_znak(osy, osx, kogo_ruch, ilosc, plansza)
 
         # Obsługa ruchów KOMPUTERA
@@ -97,20 +97,20 @@ def drugi_etap_gry(blad, event, kogo_ruch, plansza, punkt_gracz, punkt_ai, wybra
     if kogo_ruch == stale.GRACZ:
         if not wybrano:
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                mouseX, mouseY = event.pos
-                if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
-                    temp_osy0 = (mouseY // stale.ROZMIAR_POLA)
-                    temp_osx0 = (mouseX // stale.ROZMIAR_POLA)
+                mouse_x, mouse_y = event.pos
+                if mouse_x <= stale.ROZMIAR_PLANSZY and mouse_y <= stale.ROZMIAR_PLANSZY:
+                    temp_osy0 = (mouse_y // stale.ROZMIAR_POLA)
+                    temp_osx0 = (mouse_x // stale.ROZMIAR_POLA)
                 if plansza[temp_osy0][temp_osx0] == stale.GRACZ:
                     osx0 = temp_osx0
                     osy0 = temp_osy0
                     wybrano = True
         else:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                mouseX, mouseY = event.pos
-                if mouseX <= stale.ROZMIAR_PLANSZY and mouseY <= stale.ROZMIAR_PLANSZY:
-                    osy1 = (mouseY // stale.ROZMIAR_POLA)
-                    osx1 = (mouseX // stale.ROZMIAR_POLA)
+                mouse_x, mouse_y = event.pos
+                if mouse_x <= stale.ROZMIAR_PLANSZY and mouse_y <= stale.ROZMIAR_PLANSZY:
+                    osy1 = (mouse_y // stale.ROZMIAR_POLA)
+                    osx1 = (mouse_x // stale.ROZMIAR_POLA)
                 if sprawdzanie_ruchow.sasiadujace(osx0, osy0, osx1, osy1):
                     kogo_ruch, blad = poruszanie.porusz_znak(osy0, osx0, osy1, osx1, kogo_ruch, plansza)
                 else:
@@ -163,7 +163,7 @@ def main():
             # zmienna ilosc zlicza nam ile pionkow zostalo juz rozstawionych
             if ilosc != stale.ILOSC_PIONKOW and not wartosc and not wygrana:
                 blad, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana, zwyciezca = pierwszy_etap_gry(
-                                                 blad, event, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana)
+                    blad, event, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana)
                 punkt_ai, punkt_gracz, koniec = zlicz_punkty(koniec, punkt_gracz, punkt_ai, wygrana, zwyciezca)
 
                 # Przemieszczanie rozstawionych pionków.
