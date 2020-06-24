@@ -13,50 +13,45 @@ class Postaw_Znak_Tests(unittest.TestCase):
         self.plansza[0][1] = stale.GRACZ
         self.plansza[1][1] = stale.GRACZ
         self.plansza[2][1] = stale.GRACZ
-        wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertTrue(wynik)
+        self.assertTrue(sprawdzanie_ruchow.sprawdz_pola(self.plansza))
 
     def test_kolumny2(self):
         self.plansza[1][0] = stale.PUSTO
         self.plansza[2][0] = stale.PUSTO
         self.plansza[0][0] = stale.PUSTO
-        wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertFalse(wynik)
+        self.assertFalse(sprawdzanie_ruchow.sprawdz_pola(self.plansza))
 
     def test_wiersze(self):
         self.plansza[0][0] = stale.KOMPUTER
         self.plansza[0][1] = stale.KOMPUTER
         self.plansza[0][2] = stale.KOMPUTER
-        wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertTrue(wynik)
+        self.assertTrue(sprawdzanie_ruchow.sprawdz_pola(self.plansza))
 
     def test_po_skosie1(self):
         self.plansza[0][0] = stale.GRACZ
         self.plansza[1][1] = stale.GRACZ
         self.plansza[2][2] = stale.GRACZ
-        wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertTrue(wynik)
+        self.assertTrue(sprawdzanie_ruchow.sprawdz_pola(self.plansza))
 
     def test_po_skosie2(self):
         self.plansza[0][2] = stale.GRACZ
         self.plansza[1][1] = stale.KOMPUTER
         self.plansza[2][0] = stale.KOMPUTER
-        wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertFalse(wynik)
+        self.assertFalse(sprawdzanie_ruchow.sprawdz_pola(self.plansza))
 
     def test_kto_wygral(self):
         self.plansza[1][0] = stale.GRACZ
         self.plansza[2][0] = stale.GRACZ
         self.plansza[0][0] = stale.GRACZ
         wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertTrue(wynik == stale.GRACZ)
+        self.assertEqual(wynik, stale.GRACZ)
 
     def test_kto_wygral2(self):
         self.plansza[1][0] = stale.GRACZ
         self.plansza[2][0] = stale.GRACZ
         self.plansza[0][0] = stale.GRACZ
         wynik = sprawdzanie_ruchow.sprawdz_pola(self.plansza)
-        self.assertFalse(wynik == stale.KOMPUTER)
+        self.assertNotEqual(wynik, stale.KOMPUTER)
 
 
 if __name__ == '__main__':

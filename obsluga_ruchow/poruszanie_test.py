@@ -10,35 +10,23 @@ class Poruszanie_Pionka_Tests(unittest.TestCase):
     def setUp(self):
         self.plansza = obszar_gry.stworz_tablice()
 
-    def test_porszanie1(self):
-        self.osx0 = 1
-        self.osy0 = 1
-        self.osx1 = 2
-        self.osy1 = 1
-        self.plansza[self.osy0][self.osx0] == stale.GRACZ
-        self.plansza[self.osy1][self.osx1] == stale.KOMPUTER
-        wynik = poruszanie.porusz_znak(self.osy0, self.osx0, self.osy1, self.osx1, stale.GRACZ, self.plansza)[0]
-        self.assertFalse(wynik == stale.KOMPUTER)
+    def test_poruszanie1(self):
+        self.plansza[1][1] == stale.GRACZ
+        self.plansza[1][2] == stale.KOMPUTER
+        wynik = poruszanie.porusz_znak(1, 1, 1, 2, stale.GRACZ, self.plansza)[0]
+        self.assertNotEqual(wynik, stale.KOMPUTER)
 
-    def test_porszanie2(self):
-        self.osx0 = 0
-        self.osy0 = 0
-        self.osx1 = 0
-        self.osy1 = 0
-        self.plansza[self.osy0][self.osx0] == stale.GRACZ
-        self.plansza[self.osy1][self.osx1] == stale.GRACZ
-        wynik = poruszanie.porusz_znak(self.osy0, self.osx0, self.osy1, self.osx1, stale.GRACZ, self.plansza)[0]
-        self.assertTrue(wynik == stale.GRACZ)
+    def test_poruszanie2(self):
+        self.plansza[0][0] == stale.GRACZ
+        self.plansza[0][0] == stale.GRACZ
+        wynik = poruszanie.porusz_znak(0, 0, 0, 0, stale.GRACZ, self.plansza)[0]
+        self.assertEqual(wynik, stale.GRACZ)
 
-    def test_porszanie3(self):
-        self.osx0 = 0
-        self.osy0 = 0
-        self.osx1 = 2
-        self.osy1 = 2
-        self.plansza[self.osy0][self.osx0] == stale.GRACZ
-        self.plansza[self.osy1][self.osx1] == stale.KOMPUTER
-        wynik = poruszanie.porusz_znak(self.osy0, self.osx0, self.osy1, self.osx1, stale.KOMPUTER, self.plansza)[0]
-        self.assertTrue(wynik == stale.KOMPUTER)
+    def test_poruszanie3(self):
+        self.plansza[0][0] == stale.GRACZ
+        self.plansza[2][2] == stale.KOMPUTER
+        wynik = poruszanie.porusz_znak(0, 0, 2, 2, stale.KOMPUTER, self.plansza)[0]
+        self.assertEqual(wynik, stale.KOMPUTER)
 
 
 

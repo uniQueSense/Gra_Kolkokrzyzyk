@@ -162,14 +162,8 @@ def main():
             # Rozstawianie pionków po przez wciśnięcie myszki w danym polu,
             # zmienna ilosc zlicza nam ile pionkow zostalo juz rozstawionych
             if ilosc != stale.ILOSC_PIONKOW and not wartosc and not wygrana:
-                blad, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana, zwyciezca = pierwszy_etap_gry(blad,
-                                                                                                               event,
-                                                                                                               ilosc,
-                                                                                                               kogo_ruch,
-                                                                                                               plansza,
-                                                                                                               punkt_gracz,
-                                                                                                               punkt_ai,
-                                                                                                               wygrana)
+                blad, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana, zwyciezca = pierwszy_etap_gry(
+                                                 blad, event, ilosc, kogo_ruch, plansza, punkt_gracz, punkt_ai, wygrana)
                 punkt_ai, punkt_gracz, koniec = zlicz_punkty(koniec, punkt_gracz, punkt_ai, wygrana, zwyciezca)
 
                 # Przemieszczanie rozstawionych pionków.
